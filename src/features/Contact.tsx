@@ -52,6 +52,7 @@ export default function Contact() {
     const timeout = window.setTimeout(() => controller.abort('timeout'), 20000);
     setState('sending');
     setError('');
+    setDraft(null);
     try {
       await submitContact(values, controller.signal);
       form.reset();
