@@ -1,0 +1,30 @@
+[
+  {
+    "id": "nexo",
+    "title": "NEXO Fulfillment",
+    "repo": "BryanOnKeys/nexo-fulfillment",
+    "ref": "b7003d4af1039e152122474d5dce323f554cf300",
+    "files": [
+      "apps/operations/src/application/orders.service.ts",
+      "apps/operations/src/domain/order.ts",
+      "apps/operations/src/infrastructure/mikro-order.store.ts",
+      "packages/platform/src/security.ts",
+      "test/unit/domain.test.ts",
+      "docs/arquitectura.md"
+    ]
+  },
+  {
+    "id": "crm",
+    "title": "Borough & Ledger CRM",
+    "repo": "BryanOnKeys/borough-ledger-crm",
+    "ref": "2295fc6704651c5af79bbceeba9ca09f1b247b7a",
+    "files": [
+      "backend/src/main/java/com/boroughledger/crm/customers/CustomerService.java",
+      "backend/src/main/java/com/boroughledger/crm/customers/CustomerRepository.java",
+      "backend/src/main/java/com/boroughledger/crm/security/SecurityConfig.java",
+      "backend/src/test/java/com/boroughledger/crm/customers/CustomerServiceTest.java",
+      "backend/src/main/resources/db/migration/V1__initial_schema.sql",
+      "docs/ARQUITECTURA.md"
+    ]
+  }
+]

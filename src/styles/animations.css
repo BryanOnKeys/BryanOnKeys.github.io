@@ -1,0 +1,45 @@
+@keyframes orbital-drift {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.sphere-fallback > div {
+  animation: orbital-drift 22s linear infinite;
+}
+.sphere-fallback > div:nth-child(2) {
+  animation-duration: 35s;
+  animation-direction: reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@keyframes fallback-orbit-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fallback-core-float {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.fallback-orbits {
+  animation: fallback-orbit-turn 90s linear infinite;
+  transform-origin: 230px 212px;
+}
+.fallback-core {
+  animation: fallback-core-float 7s ease-in-out infinite;
+}
+.webgl-host[data-paused='true'] .geometric-fallback * {
+  animation-play-state: paused !important;
+}
