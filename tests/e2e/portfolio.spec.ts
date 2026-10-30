@@ -1,12 +1,18 @@
 import { test, expect } from '@playwright/test';
-test('contacto conserva el mensaje y prepara un correo completo ante falta de entrega', async ({
+test('contacto conserva datos ante errores y restablece el formulario tras la aceptación', async ({
   page,
 }) => {
+  let accepted = false;
   await page.route('https://api.web3forms.com/submit', (route) =>
     route.fulfill({
-      status: 503,
+      status: accepted ? 200 : 503,
       contentType: 'application/json',
-      body: JSON.stringify({ success: false }),
+      headers: {
+        'access-control-allow-origin': '*',
+        'access-control-allow-headers': 'content-type',
+        'access-control-allow-methods': 'POST, OPTIONS',
+      },
+      body: JSON.stringify({ success: accepted }),
     }),
   );
   await page.goto('/#contacto');
@@ -14,6 +20,9 @@ test('contacto conserva el mensaje y prepara un correo completo ante falta de en
   await page.getByLabel(/^Tu correo/).fill('prueba@example.com');
   await page.getByLabel(/^Asunto/).fill('Prueba breve & contacto');
   await page.getByLabel(/^Mensaje/).fill('Probando el formulario desde GitHub Pages.');
+  const direct = await page
+    .getByRole('button', { name: 'Enviar mensaje', exact: true })
+    .isVisible();
   await page.getByRole('button', { name: /^(Enviar|Preparar) mensaje$/ }).click();
   const gmail = page.getByRole('link', { name: 'Continuar en Gmail' });
   await expect(gmail).toBeVisible();
@@ -26,6 +35,17 @@ test('contacto conserva el mensaje y prepara un correo completo ante falta de en
     'Probando el formulario desde GitHub Pages.',
   );
   await expect(page.getByText('Mensaje aceptado para envío.', { exact: true })).toHaveCount(0);
+  if (direct) {
+    accepted = true;
+    await page.getByRole('button', { name: 'Enviar mensaje', exact: true }).click();
+    await expect(page.getByText('Mensaje aceptado para envío.', { exact: true })).toBeVisible();
+    await expect(page.getByLabel(/^Nombre/)).toHaveValue('');
+    await expect(page.getByLabel(/^Tu correo/)).toHaveValue('');
+    await expect(page.getByLabel(/^Asunto/)).toHaveValue('');
+    await expect(page.getByLabel(/^Mensaje/)).toHaveValue('');
+    await expect(page.locator('.contact-form :user-invalid')).toHaveCount(0);
+    await expect(gmail).toHaveCount(0);
+  }
 });
 test('navegación, proyectos y explorador real', async ({ page }) => {
   const errors: string[] = [];

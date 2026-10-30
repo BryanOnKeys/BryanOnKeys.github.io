@@ -32,6 +32,7 @@ export default function Contact() {
   }
   async function send(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     if (inFlight.current || honey.current?.value) return;
     try {
       normalizeContact(values);
@@ -53,6 +54,7 @@ export default function Contact() {
     setError('');
     try {
       await submitContact(values, controller.signal);
+      form.reset();
       setState('sent');
       setValues(empty);
     } catch (err) {

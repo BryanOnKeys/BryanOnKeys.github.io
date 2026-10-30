@@ -49,11 +49,10 @@ Se creó el repositorio público `BryanOnKeys/BryanOnKeys.github.io` y se config
 ## Contenido pendiente de aportación
 
 - CV confirmado, si se desea incorporar.
-- Activación del destinatario y recepción real del formulario, pendientes del servicio de correo.
 - Capturas reales o URLs de evaluación públicas de los backends.
 - Nuevos proyectos: se añaden al registro de contenido sin mostrar entradas ficticias.
 - Lighthouse: no se ha ejecutado una auditoría con puntuación.
 
 ## Revisión del 30 de octubre de 2026
 
-Se integra la foto entregada, se sustituye el contacto por un formulario y se elimina el menú repetido del footer. TypeScript, ESLint, 19 pruebas y build de producción ejecutados correctamente. Las pruebas de transporte utilizan respuestas simuladas: no certifican entrega en Gmail. La consulta real de FormSubmit devolvió HTTP 521. Se sustituyó por una integración preparada para Web3Forms con verificación del propietario y alternativa explícita para enviar desde Gmail. No se afirma recepción real ni activación completada.
+Se integra la foto entregada, se sustituye el contacto por un formulario y se elimina el menú repetido del footer. TypeScript, ESLint, 19 pruebas y build de producción ejecutados correctamente. Las pruebas de transporte utilizan respuestas simuladas: no certifican entrega en Gmail. La consulta real de FormSubmit devolvió HTTP 521. Se sustituyó por una integración preparada para Web3Forms con verificación del propietario y alternativa explícita para enviar desde Gmail. La activación se completó después de que el propietario registrara su cuenta. Se creó el formulario, se configuró la variable de GitHub y se ejecutó el despliegue 41120402720. Una prueba enviada desde el sitio publicado llegó a INBOX en Gmail; se leyó el cuerpo identificable y se comprobó Reply-To. Se corrigió además el restablecimiento del estado nativo de validación para que los campos vacíos no se marquen como erróneos tras un envío correcto; la prueba de navegador cubre el rechazo, el reintento y la limpieza posterior.

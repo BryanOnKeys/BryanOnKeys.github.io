@@ -2,9 +2,15 @@
 
 Destino del propietario: `contact.bryanonkeys@gmail.com`. La integración utiliza la API de Web3Forms, compatible con un frontend estático en GitHub Pages. Se retiró FormSubmit porque las comprobaciones reales del 30 de octubre de 2026 devolvieron HTTP 521.
 
-## Activar el envío directo
+## Estado verificado
 
-1. El propietario debe crear o abrir su cuenta en https://app.web3forms.com y verificar `contact.bryanonkeys@gmail.com`.
+El 30 de octubre de 2026 se creó **Portfolio de Bryan - Contacto**, con `contact.bryanonkeys@gmail.com` como único destinatario. Su identificador público está guardado en la variable de repositorio `VITE_CONTACT_ACCESS_KEY`. El [despliegue de activación](https://github.com/BryanOnKeys/BryanOnKeys.github.io/actions/runs/41120402720) terminó correctamente.
+
+Se envió una prueba real desde https://bryanonkeys.github.io/#contacto con asunto **[Portfolio de Bryan] Prueba GitHub Pages - 20261030-01**. Se leyó el mensaje recibido en Gmail y se confirmó su etiqueta **INBOX**, el identificador del cuerpo `BRYAN-PAGES-20261030-01` y el encabezado **Reply-To** con el correo introducido. Esta comprobación usa la recepción real, además de los tests con respuestas simuladas.
+
+## Configuración del envío directo
+
+1. Abrir la cuenta del propietario en https://app.web3forms.com y verificar `contact.bryanonkeys@gmail.com`.
 2. Crear un formulario y obtener su **Access Key**. Este UUID es un identificador público diseñado para usarse en el navegador; no es la contraseña de Gmail ni una clave API privada.
 3. En el repositorio, Settings → Secrets and variables → Actions → Variables, guardar `VITE_CONTACT_ACCESS_KEY` con ese identificador. El workflow ya lo pasa al build.
 4. Ejecutar de nuevo `Publicar en GitHub Pages` desde Actions.
@@ -28,7 +34,7 @@ El identificador público determina el destinatario. El visitante solo especific
 
 Con el envío directo activado, nombre, correo, asunto y mensaje se comparten con Web3Forms únicamente al enviar. La interfaz enlaza la política de privacidad del proveedor. Web3Forms puede almacenar los envíos según su configuración y condiciones vigentes; no se afirma que carezca de almacenamiento. El repositorio y el navegador no guardan los mensajes de forma persistente.
 
-Los tests simulan el transporte y comprueban sus estados; no certifican la bandeja de entrada. No se ha confirmado recepción real hasta completar el paso 5. Crear la cuenta requiere que el propietario acepte las condiciones del proveedor.
+Los tests automatizados simulan el transporte y comprueban sus estados. La recepción real se verificó por separado como se describe arriba. Tras un envío aceptado, se restablecen los campos y el estado nativo de validación para evitar bordes de error en el formulario vacío. Si cambia el destinatario o el identificador, se debe repetir la comprobación de entrega.
 
 ## Fuentes oficiales
 

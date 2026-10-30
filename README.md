@@ -12,7 +12,7 @@ Portfolio en español con React, TypeScript y Vite. Una experiencia estática qu
 - Diagramas interactivos de los dos sistemas y recorrido por las etapas de desarrollo.
 - Calendario público de GitHub incluido durante la compilación, con fecha visible de la instantánea.
 - Foto de perfil real proporcionada por Bryan, integrada en Sobre mí.
-- Formulario con nombre, correo, asunto y mensaje, validación y envío mediante Web3Forms cuando se configura el identificador público del destinatario verificado. Sin activar esa recepción, conserva los campos y prepara un correo para enviarlo desde Gmail.
+- Formulario con nombre, correo, asunto y mensaje, validación y envío directo mediante Web3Forms a `contact.bryanonkeys@gmail.com`. Recepción comprobada en Gmail; conserva los datos y ofrece continuar por correo si el servicio falla.
 - Pie de página compacto con botón para volver arriba y brillo discreto.
 - Navegación con teclado, menú móvil, reducción de movimiento y fuentes locales.
 
