@@ -11,8 +11,8 @@ Validación efectuada durante esta implementación. Los resultados corresponden 
 | Vitest y Testing Library (`npm test`)     | 19 pruebas correctas                                      |
 | Build de producción (`npm run build`)     | Correcto: dos entradas HTML y recursos estáticos          |
 | Formato (`npm run format:check`)          | Correcto                                                  |
-| Playwright CLI, escritorio                | No pudo arrancar: falta el ejecutable Chromium            |
-| Instalación oficial de Chromium           | Falló: descarga truncada, sin un ZIP válido               |
+| Playwright en GitHub Actions              | 6 pruebas correctas: escritorio y móvil                   |
+| Chromium en GitHub Actions                | Instalación correcta                                      |
 | Lighthouse                                | Sin puntuación: no hay Chrome utilizable en el contenedor |
 
 El build advierte que el módulo diferido de Three.js supera 500 kB minificado (unos 134 kB gzip). No impide compilar. Se conserva la advertencia y se documenta su coste.
@@ -34,7 +34,7 @@ En el navegador disponible se comprobaron además:
 - Menú móvil: apertura y cierre al navegar a Contacto.
 - Contacto: destino `mailto:` real y perfiles confirmados.
 
-Las comprobaciones del navegador usan su interfaz Playwright disponible; no se presentan como una ejecución exitosa del runner CLI que no pudo arrancar. El iframe permite comprobar los breakpoints y la composición; no equivale a una prueba en un teléfono físico ni en Safari.
+La primera revisión local usó la interfaz del navegador porque la instalación local de Chromium falló. En GitHub Actions se instaló Chromium y el runner ejecutó correctamente las 6 pruebas de navegador, incluyendo la conservación y composición del contacto. El iframe permite comprobar los breakpoints y la composición; no equivale a una prueba en un teléfono físico ni en Safari.
 
 ## Escena y límites visuales
 
@@ -44,7 +44,7 @@ Las capturas de la revisión original proceden del navegador real y se conservan
 
 ## Publicación en GitHub Pages
 
-Se creó el repositorio público `BryanOnKeys/BryanOnKeys.github.io` y se configuró Pages con GitHub Actions. El workflow publica únicamente después de las comprobaciones. El resultado de la ejecución en GitHub y la comprobación del dominio se registran al terminar el despliegue.
+Se creó el repositorio público `BryanOnKeys/BryanOnKeys.github.io` y se configuró Pages con GitHub Actions. El workflow publica únicamente después de las comprobaciones. El despliegue del commit `d0e9b9873f61b01cd7fde05217efcdf7cb6d0206` terminó correctamente: [ejecución 41074188607](https://github.com/BryanOnKeys/BryanOnKeys.github.io/actions/runs/41074188607). Se abrió https://bryanonkeys.github.io/ y se verificó la foto de 640 × 640 desde ese mismo dominio, los enlaces y el cierre con formulario y botón Volver arriba.
 
 ## Contenido pendiente de aportación
 
@@ -52,7 +52,7 @@ Se creó el repositorio público `BryanOnKeys/BryanOnKeys.github.io` y se config
 - Activación del destinatario y recepción real del formulario, pendientes del servicio de correo.
 - Capturas reales o URLs de evaluación públicas de los backends.
 - Nuevos proyectos: se añaden al registro de contenido sin mostrar entradas ficticias.
-- Lighthouse y Playwright CLI en un entorno con Chrome instalado.
+- Lighthouse: no se ha ejecutado una auditoría con puntuación.
 
 ## Revisión del 30 de octubre de 2026
 
