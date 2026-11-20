@@ -46,9 +46,8 @@ export default function EngineeringExplorer({
     >
       <div className="container">
         <SectionHeading
-          eyebrow="BACKEND ENGINEERING EXPLORER"
           title="Por dentro del código"
-          description="Estructura, decisiones y código auténtico. Abre un archivo y explora cómo está construido."
+          description="Explora la implementación y las decisiones técnicas de los dos proyectos."
           action={
             <label className="project-select">
               <Boxes size={15} />
@@ -63,13 +62,8 @@ export default function EngineeringExplorer({
         <div className="engineering-grid">
           <div className="editor">
             <div className="editor-topbar">
-              <div className="window-dots">
-                <i />
-                <i />
-                <i />
-              </div>
+              <GitBranch size={16} aria-hidden="true" />
               <span>{project.repo.split('/')[1]}</span>
-              <small>ARCHIVOS SELECCIONADOS</small>
             </div>
             <div className="editor-main">
               <aside className="file-tree" aria-label="Explorador de archivos">

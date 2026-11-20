@@ -82,13 +82,8 @@ export default function Contact() {
     <section id="contacto" className="section contact-section">
       <div className="container contact-layout">
         <div className="contact-intro">
-          <div className="eyebrow">◈ CONTACTO</div>
-          <h2>¿Lo construimos?</h2>
-          <p>
-            Una idea, un reto técnico o una oportunidad.
-            <br />
-            Cuéntame qué tienes en mente.
-          </p>
+          <h2>Hablemos de tu proyecto</h2>
+          <p>Cuéntame qué estás construyendo, cuál es el reto y cómo puedo colaborar.</p>
           <div className="contact-destination">
             <i>
               <Mail size={19} />
@@ -105,10 +100,6 @@ export default function Contact() {
             <a href={profile.github} target="_blank" rel="noopener noreferrer">
               <Github size={16} /> GitHub <ArrowUpRight size={12} />
             </a>
-          </div>
-          <div className="contact-note">
-            <span />
-            Los buenos proyectos empiezan con una conversación.
           </div>
         </div>
         <form

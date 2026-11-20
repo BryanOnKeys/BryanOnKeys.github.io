@@ -1,76 +1,67 @@
 export type ProjectCategory = 'Backend' | 'Frontend' | 'Full Stack';
 export interface Project {
-  id: string;
+  id: 'crm' | 'nexo' | 'petshop' | 'portfolio';
   title: string;
   category: ProjectCategory;
+  domain: string;
   description: string;
   tags: string[];
   repo: string;
-  status: string;
-  visual: 'crm' | 'nexo' | 'petshop' | 'portfolio';
-  eyebrow: string;
   engineering?: string;
   demo?: string;
 }
+
 export const projects: Project[] = [
   {
     id: 'crm',
     title: 'Borough & Ledger',
     category: 'Full Stack',
-    eyebrow: 'CRM · Gestión comercial',
+    domain: 'Gestión comercial',
     description:
-      'Clientes, oportunidades y cotizaciones conectados en una aplicación con trazabilidad y datos por organización.',
+      'CRM para gestionar clientes, oportunidades y cotizaciones. Explora cómo separa los datos por organización y registra los cambios.',
     tags: ['Java', 'Spring Boot', 'React', 'MySQL'],
     repo: 'https://github.com/BryanOnKeys/borough-ledger-crm',
-    status: 'Código disponible',
-    visual: 'crm',
     engineering: 'crm',
   },
   {
     id: 'nexo',
     title: 'NEXO Fulfillment',
     category: 'Backend',
-    eyebrow: 'Operaciones · Sistemas distribuidos',
+    domain: 'Logística',
     description:
-      'Pedidos e inventario con reservas transaccionales, eventos, documentos y notificaciones entre servicios.',
+      'Servicios de pedidos e inventario con reservas transaccionales, notificaciones y eventos que se publican después de confirmar los cambios.',
     tags: ['NestJS', 'TypeScript', 'PostgreSQL', 'Docker'],
     repo: 'https://github.com/BryanOnKeys/nexo-fulfillment',
-    status: 'Entorno local con Docker',
-    visual: 'nexo',
     engineering: 'nexo',
   },
   {
     id: 'petshop',
     title: 'Patitas Felices',
     category: 'Frontend',
-    eyebrow: 'Experiencia web · Tienda de mascotas',
+    domain: 'Comercio electrónico',
     description:
-      'Interfaz de una tienda de mascotas: navegación por categorías, vistas de productos y componentes reutilizables.',
+      'Tienda de mascotas con catálogo por categorías y páginas de producto, publicada como una demo navegable.',
     tags: ['React', 'JavaScript', 'CSS'],
     repo: 'https://github.com/BryanOnKeys/web-petshop',
-    status: 'Demo pública',
-    visual: 'petshop',
     demo: 'https://bryanonkeys.github.io/web-petshop/',
   },
   {
     id: 'portfolio',
-    title: 'Este portfolio',
+    title: 'Este portafolio',
     category: 'Frontend',
-    eyebrow: 'Portafolio · Código abierto',
+    domain: 'Código abierto',
     description:
-      'Un recorrido por mis proyectos y su código, con actividad pública de GitHub actualizada automáticamente.',
+      'Explorador de proyectos y actividad pública de GitHub. El sitio se compila con Vite y se actualiza mediante GitHub Actions.',
     tags: ['React', 'TypeScript', 'GitHub Actions', 'Vite'],
     repo: 'https://github.com/BryanOnKeys/BryanOnKeys.github.io',
-    status: 'Estás aquí',
-    visual: 'portfolio',
-    demo: '#inicio',
   },
 ];
+
 export const filters = ['Todos', 'Backend', 'Frontend', 'Full Stack'] as const;
 export const filterProjects = (filter: (typeof filters)[number]) =>
   projects.filter(
-    (p) =>
+    (project) =>
       filter === 'Todos' ||
-      p.category === filter ||
-      (filter === 'Backend' && p.category === 'Full Stack'),
+      project.category === filter ||
+      (filter === 'Backend' && project.category === 'Full Stack'),
   );

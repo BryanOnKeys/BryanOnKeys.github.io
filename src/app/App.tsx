@@ -18,8 +18,6 @@ function Home() {
       <Hero github={snapshot} />
       <Projects />
       <GitHubActivity snapshot={snapshot} />
-      <About />
-      <Skills />
       <Suspense
         fallback={
           <div className="section-loading" role="status">
@@ -30,6 +28,8 @@ function Home() {
         <EngineeringExplorer />
       </Suspense>
       <Architecture />
+      <About />
+      <Skills />
       <Contact />
     </>
   );
@@ -48,12 +48,15 @@ export default function App() {
           <>
             <div className="container explorer-intro">
               <a className="text-link" href={import.meta.env.BASE_URL}>
-                ← Volver al portfolio
+                Volver al portafolio
               </a>
               <h1>
                 Backend Engineering Explorer<span>.</span>
               </h1>
-              <p>Dos proyectos. Código real. Decisiones que puedes comprobar.</p>
+              <p>
+                Inspecciona los archivos de NEXO Fulfillment y Borough & Ledger en su commit de
+                origen.
+              </p>
             </div>
             <Suspense
               fallback={

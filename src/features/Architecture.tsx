@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   GitBranch,
   ArrowUpRight,
-  ChevronRight,
 } from 'lucide-react';
 import { architectures } from '../content/architecture';
 import { SectionHeading } from '../components/SectionHeading';
@@ -44,9 +43,8 @@ export default function Architecture() {
     <section id="arquitectura" className="section architecture-section">
       <div className="container">
         <SectionHeading
-          eyebrow="ARQUITECTURA Y PROCESO"
-          title="De la idea al producto"
-          description="Un enfoque estructurado, con decisiones que se pueden explicar."
+          title="Arquitectura y proceso"
+          description="Selecciona un componente para ver su responsabilidad y el código que la implementa."
         />
         <div className="architecture-layout">
           <div className="process">
@@ -61,17 +59,13 @@ export default function Architecture() {
                     aria-pressed={index === step}
                   >
                     <Icon size={22} />
-                    <small>0{index + 1}</small>
                     <span>{label}</span>
-                    {index < 6 && <ChevronRight size={12} className="step-chevron" />}
                   </button>
                 );
               })}
             </div>
             <div className="step-description" role="status">
-              <b>
-                0{step + 1} / {steps[step][0]}
-              </b>
+              <b>{steps[step][0]}</b>
               <p>{steps[step][1]}</p>
             </div>
           </div>
@@ -116,7 +110,7 @@ export default function Architecture() {
                     markerHeight="4"
                     orient="auto-start-reverse"
                   >
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#7089af" />
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--line-emphasis)" />
                   </marker>
                 </defs>
                 {diagram.edges.map(([from, to]) => {

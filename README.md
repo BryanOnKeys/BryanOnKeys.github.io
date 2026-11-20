@@ -1,19 +1,19 @@
-# Bryan · Software Developer
+# BryanOnKeys · Desarrollador Full Stack
 
-Portafolio en español inspirado en un tablero de ajedrez. Reúne proyectos Full Stack, código de backend y aportes públicos a GitHub. Está construido con React, TypeScript y Vite. Puedes explorarlo en [bryanonkeys.github.io](https://bryanonkeys.github.io/).
+Portafolio en español con escenas inspiradas en los gráficos 3D de la era de 64 bits. Reúne proyectos Full Stack, código de backend y aportes públicos a GitHub. Está construido con React, TypeScript y Vite. Puedes explorarlo en [bryanonkeys.github.io](https://bryanonkeys.github.io/).
 
 ## La experiencia
 
-- Diseño editorial en marfil y nogal, con tipografía serif y una cuadrícula de proyectos que alterna superficies claras y oscuras.
+- Portada y fichas ilustradas con geometría de pocos polígonos, texturas de baja resolución y una paleta de índigo, lavanda y durazno.
 - Secciones de presentación, tecnologías con evidencia, cuatro tarjetas de trabajo y filtros.
 - Explorador de 12 archivos auténticos de Nexo y Borough & Ledger, con resaltado Shiki precalculado y enlaces fijados a sus commits.
 - Página independiente en `/engineering/?project=nexo` o `?project=crm`.
 - Diagramas interactivos de los dos sistemas y recorrido por las etapas de desarrollo.
 - Seguidores, repositorios públicos, repositorios propios y calendario de contribuciones de GitHub.
-- Actividad reciente con filtros para pull requests, issues, revisiones y comentarios. Cada entrada abre el aporte original.
+- Actividad reciente con búsqueda por título o repositorio y filtros para pull requests, issues, revisiones y comentarios. Cada entrada abre el aporte original.
 - Foto de perfil real proporcionada por Bryan, integrada en Sobre mí.
 - Formulario con nombre, correo, asunto y mensaje, validación y envío directo mediante Web3Forms a `contact.bryanonkeys@gmail.com`. Recepción comprobada en Gmail; conserva los datos y ofrece continuar por correo si el servicio falla.
-- Pie de página compacto con botón para volver arriba y brillo discreto.
+- Acceso al perfil, a los repositorios, a la demo de la tienda y al formulario de contacto desde la página principal.
 - Navegación con teclado, menú móvil, reducción de movimiento y fuentes locales.
 
 ## Ejecutar en Windows 11
@@ -66,7 +66,7 @@ npm run test:e2e
 
 `npm run content:sync` también descarga el código público fijado en `scripts/source-manifest.json` y genera el resaltado Shiki. Los tokens de GitHub se usan durante el workflow.
 
-Las vistas de CRM y Nexo son diagramas identificados como tales. La composición de Patitas Felices utiliza un recurso original del repositorio; no es una captura de una aplicación ejecutándose. El portfolio no presenta los backends como despliegues públicos ni inventa proyectos futuros.
+Las portadas de CRM y NEXO son ilustraciones conceptuales. Los diagramas interactivos y el explorador muestran la arquitectura y el código de esos repositorios. La ficha de Patitas Felices usa una captura de la demo publicada.
 
 La fotografía de Sobre mí fue proporcionada y autorizada por el usuario. El CV continúa pendiente de un archivo confirmado.
 
@@ -80,7 +80,7 @@ El workflow `deploy.yml` valida y publica los cambios de `main`. Cada seis horas
 - [Sistema de diseño](docs/DESIGN_SYSTEM.md)
 - [Cambiar contenido y añadir proyectos](docs/CONTENT.md)
 - [Desplegar y recuperar](docs/DEPLOYMENT.md)
-- [Rendimiento y matemáticas](docs/PERFORMANCE.md)
+- [Rendimiento](docs/PERFORMANCE.md)
 - [Resultados de validación y límites](docs/VALIDATION.md)
 - [Procedencia y licencias](THIRD_PARTY_NOTICES.md)
 
