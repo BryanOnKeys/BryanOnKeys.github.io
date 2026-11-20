@@ -1,4 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import type { GitHubSnapshot } from '../../src/lib/github';
+
+const snapshot: GitHubSnapshot = JSON.parse(
+  readFileSync(new URL('../../src/content/generated/github.json', import.meta.url), 'utf8'),
+);
 test('contacto conserva datos ante errores y restablece el formulario tras la aceptación', async ({
   page,
 }) => {
@@ -74,9 +80,10 @@ test('navegación, proyectos y explorador real', async ({ page }) => {
 test('diseño responsive y reducción de movimiento', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await expect(page.getByRole('button', { name: 'Pausar animación' })).toBeVisible();
-  await page.getByRole('button', { name: 'Pausar animación' }).click();
-  await expect(page.getByRole('button', { name: 'Reanudar animación' })).toBeVisible();
+  await expect(page.locator('.opening-image img')).toBeVisible();
+  await expect(page.locator('.opening-image img')).toHaveJSProperty('complete', true);
+  await expect(page.locator('.opening-image img')).toHaveJSProperty('naturalWidth', 1250);
+  await expect(page.locator('html')).toHaveCSS('scroll-behavior', 'auto');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
@@ -91,4 +98,91 @@ test('diseño responsive y reducción de movimiento', async ({ page }) => {
       'false',
     );
   }
+});
+test('actividad pública filtra revisiones, comentarios y repositorios propios', async ({
+  page,
+}) => {
+  const date = snapshot.activity.updatedAt;
+  await page.route('**/data/github.json', (route) =>
+    route.fulfill({
+      json: {
+        ...snapshot,
+        activity: {
+          ...snapshot.activity,
+          updatedAt: new Date(Date.parse(date) + 60000).toISOString(),
+          items: [
+            {
+              kind: 'review',
+              title: 'Revisión de Plugin Kueue',
+              repo: 'headlamp-k8s/plugins',
+              number: 1525,
+              url: 'https://github.com/headlamp-k8s/plugins/pull/1525#pullrequestreview-5975833595',
+              date,
+              state: 'commented',
+            },
+            {
+              kind: 'comment',
+              title: 'Pruebas de configuración de AskDB',
+              repo: 'Ygilany/AskDB',
+              number: 1037,
+              url: 'https://github.com/Ygilany/AskDB/pull/1037#issuecomment-7010257294',
+              date,
+              state: null,
+            },
+            {
+              kind: 'pr',
+              title: 'Publicar Patitas Felices en GitHub Pages',
+              repo: 'BryanOnKeys/web-petshop',
+              number: 2,
+              url: 'https://github.com/BryanOnKeys/web-petshop/pull/2',
+              date,
+              state: 'merged',
+            },
+          ],
+        },
+      },
+    }),
+  );
+  await page.goto('/#github');
+  const feed = page.getByRole('region', { name: 'Actividad reciente' });
+  await feed.getByRole('button', { name: 'Revisiones', exact: true }).click();
+  await expect(feed.getByRole('button', { name: 'Revisiones', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(feed.getByRole('link', { name: /Revisión de Plugin Kueue/ })).toHaveAttribute(
+    'href',
+    expect.stringContaining('#pullrequestreview-'),
+  );
+  await feed.getByRole('button', { name: 'Comentarios', exact: true }).click();
+  await expect(feed.locator('a[href*="#issuecomment-"]').first()).toBeVisible();
+  await feed.getByRole('button', { name: 'Pull requests', exact: true }).click();
+  await expect(feed.locator('a[href^="https://github.com/BryanOnKeys/"]')).toHaveCount(0);
+  await feed.getByRole('checkbox', { name: 'Incluir repositorios propios' }).check();
+  await expect(feed.locator('a[href^="https://github.com/BryanOnKeys/"]').first()).toBeVisible();
+});
+test('conserva la instantánea sin red y obtiene cambios al actualizarse', async ({ page }) => {
+  await page.clock.install();
+  let calls = 0;
+  const followers = snapshot.profile.followers + 1;
+  await page.route('**/data/github.json', (route) => {
+    calls++;
+    if (calls === 1) return route.abort();
+    return route.fulfill({
+      json: {
+        ...snapshot,
+        profile: {
+          ...snapshot.profile,
+          followers,
+          updatedAt: new Date(Date.parse(snapshot.profile.updatedAt) + 60000).toISOString(),
+        },
+      },
+    });
+  });
+  const metric = page.getByRole('link', { name: /Seguidores/ }).locator('strong');
+  await page.goto('/');
+  await expect(metric).toHaveText(String(snapshot.profile.followers));
+  await expect.poll(() => calls).toBe(1);
+  await page.clock.fastForward(10 * 60 * 1000);
+  await expect(metric).toHaveText(String(followers));
 });

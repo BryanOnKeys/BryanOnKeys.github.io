@@ -7,29 +7,15 @@ import EngineeringExplorer from '../features/EngineeringExplorer';
 import Architecture from '../features/Architecture';
 import Contact from '../features/Contact';
 import { safeExternalUrl } from '../lib/urls';
-import { orbitPosition, damping } from '../graphics/math';
 import sources from '../content/generated/engineering.json';
 
-describe('Destinos y geometría', () => {
+describe('Enlaces externos', () => {
   it('rechaza protocolos ejecutables y conserva URLs HTTPS', () => {
     expect(safeExternalUrl('javascript:alert(1)')).toBeNull();
     expect(safeExternalUrl('data:text/html,hello')).toBeNull();
     expect(safeExternalUrl('https://github.com/BryanOnKeys')).toBe(
       'https://github.com/BryanOnKeys',
     );
-  });
-  it('mantiene el radio de la órbita durante una vuelta', () => {
-    for (let i = 0; i < 20; i++) {
-      const [x, y, z] = orbitPosition((i * Math.PI) / 10, 2.5);
-      expect(Math.hypot(x, y, z)).toBeCloseTo(2.5, 10);
-    }
-  });
-  it('la interpolación no sobrepasa el objetivo y no depende del particionado temporal', () => {
-    const one = damping(0, 1, 1);
-    let split = 0;
-    for (let i = 0; i < 10; i++) split = damping(split, 1, 0.1);
-    expect(one).toBeCloseTo(split, 10);
-    expect(one).toBeLessThan(1);
   });
 });
 describe('Proyectos y evidencias', () => {

@@ -1,13 +1,4 @@
-import {
-  Database,
-  Braces,
-  GitBranch,
-  Layers,
-  ArrowRight,
-  ShoppingBag,
-  Boxes,
-  CodeXml,
-} from 'lucide-react';
+import { Database, Braces, GitBranch, Layers, ArrowRight, ShoppingBag, Boxes } from 'lucide-react';
 import type { Project } from '../content/projects';
 export default function ProjectVisual({ type }: { type: Project['visual'] }) {
   if (type === 'petshop')
@@ -42,27 +33,18 @@ export default function ProjectVisual({ type }: { type: Project['visual'] }) {
     );
   if (type === 'portfolio')
     return (
-      <div className="project-visual visual-portfolio">
-        <div className="mini-nav">
-          <b>BK.</b>
-          <span>Inicio · Sobre mí · Proyectos</span>
+      <div className="project-visual visual-portfolio" aria-hidden="true">
+        <div className="portfolio-mini-title">
+          <strong>Bryan.</strong>
+          <span>Portafolio</span>
         </div>
-        <div className="mini-hero">
-          <div>
-            <small>SOFTWARE DEVELOPER</small>
-            <strong>
-              Hola, soy
-              <br />
-              <em>Bryan.</em>
-            </strong>
-          </div>
-          <div className="mini-orb">
-            <span />
-            <span />
-            <CodeXml size={24} />
-          </div>
-        </div>
-        <span className="visual-label">Esta experiencia · React + WebGL</span>
+        <img
+          src={`${import.meta.env.BASE_URL}assets/images/chess-hero.webp`}
+          loading="lazy"
+          alt=""
+          width="1250"
+          height="938"
+        />
       </div>
     );
   const crm = type === 'crm';

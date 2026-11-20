@@ -1,16 +1,16 @@
 # Bryan · Software Developer
 
-Portfolio en español con React, TypeScript y Vite. Una experiencia estática que permite explorar proyectos, código de backend y decisiones de arquitectura sin depender de un servidor de aplicación ni de una base de datos.
+Portafolio en español inspirado en un tablero de ajedrez. Reúne proyectos Full Stack, código de backend y aportes públicos a GitHub. Está construido con React, TypeScript y Vite. Puedes explorarlo en [bryanonkeys.github.io](https://bryanonkeys.github.io/).
 
 ## La experiencia
 
-- Esfera Three.js real con geometría, núcleo cúbico, órbitas paramétricas y respuesta suavizada al cursor.
-- Alternativa SVG calculada mediante código cuando WebGL no está disponible.
+- Diseño editorial en marfil y nogal, con tipografía serif y una cuadrícula de proyectos que alterna superficies claras y oscuras.
 - Secciones de presentación, tecnologías con evidencia, cuatro tarjetas de trabajo y filtros.
 - Explorador de 12 archivos auténticos de Nexo y Borough & Ledger, con resaltado Shiki precalculado y enlaces fijados a sus commits.
 - Página independiente en `/engineering/?project=nexo` o `?project=crm`.
 - Diagramas interactivos de los dos sistemas y recorrido por las etapas de desarrollo.
-- Calendario público de GitHub incluido durante la compilación, con fecha visible de la instantánea.
+- Seguidores, repositorios públicos, repositorios propios y calendario de contribuciones de GitHub.
+- Actividad reciente con filtros para pull requests, issues, revisiones y comentarios. Cada entrada abre el aporte original.
 - Foto de perfil real proporcionada por Bryan, integrada en Sobre mí.
 - Formulario con nombre, correo, asunto y mensaje, validación y envío directo mediante Web3Forms a `contact.bryanonkeys@gmail.com`. Recepción comprobada en Gmail; conserva los datos y ofrece continuar por correo si el servicio falla.
 - Pie de página compacto con botón para volver arriba y brillo discreto.
@@ -52,7 +52,6 @@ npm run test:e2e
 | ------------------------ | ----------------------------------------------------------- |
 | `src/app`                | Composición de la página y de la vista independiente        |
 | `src/features`           | Secciones y sus interacciones                               |
-| `src/graphics`           | Escena Three.js, matemáticas y alternativa SVG              |
 | `src/content`            | Identidad, proyectos, competencias y decisiones verificadas |
 | `src/content/generated`  | Instantáneas de código, tokens y actividad pública          |
 | `src/components`         | Elementos compartidos de presentación                       |
@@ -63,7 +62,9 @@ npm run test:e2e
 
 ## Fuentes y mantenimiento
 
-No se solicitan tokens de GitHub al visitante. `npm run content:sync` descarga archivos fijados al commit declarado en `scripts/source-manifest.json`, genera los tokens de Shiki y obtiene la instantánea pública de actividad del perfil. Si la red falla, conserva el contenido incluido y su fecha original.
+`npm run content:github` consulta GitHub para actualizar el perfil, los repositorios, el calendario y la actividad pública de los últimos 30 días disponible en la API. El navegador descarga la copia publicada en `/data/github.json` y vuelve a consultarla cada diez minutos mientras la página está visible. Cada sección muestra su propia fecha de actualización. Si falla una consulta, conserva la copia más reciente disponible con su fecha original.
+
+`npm run content:sync` también descarga el código público fijado en `scripts/source-manifest.json` y genera el resaltado Shiki. Los tokens de GitHub se usan durante el workflow.
 
 Las vistas de CRM y Nexo son diagramas identificados como tales. La composición de Patitas Felices utiliza un recurso original del repositorio; no es una captura de una aplicación ejecutándose. El portfolio no presenta los backends como despliegues públicos ni inventa proyectos futuros.
 
@@ -73,7 +74,7 @@ La fotografía de Sobre mí fue proporcionada y autorizada por el usuario. El CV
 
 Repositorio público: [BryanOnKeys/BryanOnKeys.github.io](https://github.com/BryanOnKeys/BryanOnKeys.github.io). GitHub Pages utiliza GitHub Actions como fuente y `main` como rama de publicación. El destino configurado es [bryanonkeys.github.io](https://bryanonkeys.github.io/).
 
-El workflow `deploy.yml` valida, prueba, compila y publica solo si el repositorio coincide con ese nombre. La salida `dist/` es portable a cualquier alojamiento estático.
+El workflow `deploy.yml` valida y publica los cambios de `main`. Cada seis horas consulta los datos de GitHub y publica una compilación actualizada. La salida `dist/` es portable a cualquier alojamiento estático.
 
 - [Arquitectura](docs/ARCHITECTURE.md)
 - [Sistema de diseño](docs/DESIGN_SYSTEM.md)

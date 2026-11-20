@@ -12,10 +12,10 @@ export const profile = {
   cv: null as string | null,
 };
 export const navigation = [
-  { id: 'inicio', label: 'Inicio' },
+  { id: 'proyectos', label: 'Proyectos' },
+  { id: 'github', label: 'Comunidad' },
   { id: 'sobre-mi', label: 'Sobre mí' },
   { id: 'stack', label: 'Stack' },
-  { id: 'proyectos', label: 'Proyectos' },
   { id: 'ingenieria', label: 'Ingeniería' },
   { id: 'contacto', label: 'Contacto' },
 ];

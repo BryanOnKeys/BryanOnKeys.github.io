@@ -1,4 +1,6 @@
-import { writeFile, readFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+await mkdir('dist/data', { recursive: true });
+await copyFile('src/content/generated/github.json', 'dist/data/github.json');
 const origin = process.env.SITE_URL || 'https://bryanonkeys.github.io';
 for (const path of ['dist/index.html', 'dist/engineering/index.html']) {
   const html = await readFile(path, 'utf8');

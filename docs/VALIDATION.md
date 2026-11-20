@@ -1,4 +1,4 @@
-# Validación de la entrega
+# Validación histórica de la entrega
 
 Validación efectuada durante esta implementación. Los resultados corresponden al portfolio, no a una ejecución completa de los backends originales.
 

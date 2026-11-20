@@ -1,147 +1,99 @@
-import { lazy, Suspense, useState } from 'react';
-import {
-  ArrowRight,
-  ArrowDown,
-  Mail,
-  CodeXml,
-  Braces,
-  Database,
-  Container,
-  Layers,
-  ShieldCheck,
-  Pause,
-  Play,
-} from 'lucide-react';
+import { ArrowDown, ArrowUpRight, FolderGit2, GitPullRequest, MapPin, Users } from 'lucide-react';
 import { profile } from '../content/profile';
-const Sphere = lazy(() => import('../graphics/HeroSphere'));
-export default function Hero() {
-  const [paused, setPaused] = useState(false);
+import { formatGitHubDate, isCommunityItem } from '../lib/github';
+import type { GitHubSnapshot } from '../lib/github';
+
+export default function Hero({ github }: { github: GitHubSnapshot }) {
+  const login = github.profile.login;
+  const activityCount = github.activity.items.filter((item) => isCommunityItem(item, login)).length;
+  const stats = [
+    {
+      value: github.profile.followers,
+      label: 'Seguidores',
+      Icon: Users,
+      href: `${profile.github}?tab=followers`,
+    },
+    {
+      value: github.profile.publicRepositories,
+      label: 'Repositorios públicos',
+      Icon: FolderGit2,
+      href: '#repositorios',
+    },
+    {
+      value: activityCount,
+      label: 'Aportes públicos · 30 días',
+      Icon: GitPullRequest,
+      href: '#github',
+    },
+  ];
   return (
-    <section id="inicio" className="hero">
-      <div className="hero-stars" aria-hidden="true" />
-      <div className="container hero-grid">
-        <div className="hero-copy">
-          <div className="status-pill">
-            <span />
-            Ingeniería, de la idea al código
-          </div>
-          <h1>
-            Hola, soy
-            <br />
-            <span className="gradient-text">
+    <section id="inicio" className="portfolio-hero" aria-labelledby="portfolio-title">
+      <div className="container">
+        <div className="opening-board">
+          <div className="opening-copy">
+            <div className="opening-role">Desarrollador Full Stack</div>
+            <h1 id="portfolio-title">
               {profile.name}
-              <span className="title-dot">.</span>
-            </span>
-          </h1>
-          <div className="hero-role">{profile.title}</div>
-          <p className="hero-description">{profile.description}</p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#proyectos">
-              Explorar proyectos <ArrowRight size={17} />
-            </a>
-            <a className="button button-secondary" href="#contacto">
-              <Mail size={17} /> Hablemos
-            </a>
-          </div>
-          <div className="hero-facts">
-            <div>
-              <span className="fact-icon purple">
-                <CodeXml size={19} />
-              </span>
-              <p>
-                Backend con criterio<small>Java · Spring Boot · NestJS</small>
-              </p>
-            </div>
-            <div>
-              <span className="fact-icon blue">
-                <Layers size={19} />
-              </span>
-              <p>
-                Interfaces con intención<small>React · TypeScript</small>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="sphere-stage">
-            <Suspense
-              fallback={
-                <div className="sphere-fallback" aria-label="Preparando visualización 3D">
-                  <div />
-                  <div />
-                  <div />
-                </div>
-              }
+              <span>.</span>
+            </h1>
+            <a
+              className="opening-handle"
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Sphere paused={paused} />
-            </Suspense>
-          </div>
-          <div className="orbit-label orbit-frontend">
-            <i className="blue">
-              <CodeXml size={17} />
-            </i>
-            <div>
-              Frontend<small>React · TypeScript</small>
+              @{login} <ArrowUpRight size={15} />
+            </a>
+            <p>{profile.description}</p>
+            <div className="opening-actions">
+              <a className="button button-primary" href="#proyectos">
+                Explorar proyectos <ArrowDown size={16} />
+              </a>
+              <a className="button button-secondary" href="#github">
+                Ver aportes <ArrowUpRight size={16} />
+              </a>
             </div>
+            {github.profile.location && (
+              <div className="opening-location">
+                <MapPin size={14} aria-hidden="true" />
+                {github.profile.location}
+              </div>
+            )}
           </div>
-          <div className="orbit-label orbit-backend">
-            <i className="green">
-              <Braces size={17} />
-            </i>
-            <div>
-              Backend<small>Java · Spring Boot · NestJS</small>
-            </div>
+          <div className="opening-image">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/images/chess-hero.webp`}
+              alt=""
+              width="1250"
+              height="938"
+              fetchPriority="high"
+            />
           </div>
-          <div className="orbit-label orbit-data">
-            <i className="cyan">
-              <Database size={17} />
-            </i>
-            <div>
-              Bases de datos<small>MySQL · PostgreSQL</small>
-            </div>
-          </div>
-          <div className="orbit-label orbit-cloud">
-            <i className="amber">
-              <Container size={17} />
-            </i>
-            <div>
-              Cloud & DevOps<small>Docker · GitHub Actions</small>
-            </div>
-          </div>
-          <div className="orbit-label orbit-architecture">
-            <i className="purple">
-              <Layers size={17} />
-            </i>
-            <div>
-              Arquitectura<small>Dominio · Eventos · APIs</small>
-            </div>
-          </div>
-          <div className="orbit-label orbit-testing">
-            <i className="pink">
-              <ShieldCheck size={17} />
-            </i>
-            <div>
-              Calidad<small>Pruebas · Trazabilidad</small>
-            </div>
-          </div>
-          <span className="orbit-caption">
-            Código, ideas
-            <br />y soluciones reales.
-          </span>
-          <button
-            className="scene-control icon-button"
-            aria-label={paused ? 'Reanudar animación' : 'Pausar animación'}
-            onClick={() => setPaused(!paused)}
-          >
-            {paused ? <Play size={13} /> : <Pause size={13} />}
-          </button>
         </div>
-      </div>
-      <div className="container hero-baseline">
-        <span>DE LA LÓGICA A LA EXPERIENCIA</span>
-        <a href="#sobre-mi">
-          Conoce mi trabajo <ArrowDown size={13} />
-        </a>
+        <div className="opening-stats" aria-label="Datos públicos de GitHub">
+          {stats.map(({ value, label, Icon, href }) => (
+            <a
+              className="opening-stat"
+              key={label}
+              href={href}
+              target={href.startsWith('https:') ? '_blank' : undefined}
+              rel={href.startsWith('https:') ? 'noopener noreferrer' : undefined}
+            >
+              <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
+              <div>
+                <strong>{value}</strong> <span>{label}</span>
+              </div>
+              <ArrowUpRight className="stat-arrow" size={16} aria-hidden="true" />
+            </a>
+          ))}
+        </div>
+        <p className="opening-updated">
+          Perfil de GitHub actualizado el{' '}
+          <time dateTime={github.profile.updatedAt}>
+            {formatGitHubDate(github.profile.updatedAt, true)}
+          </time>{' '}
+          (Lima)
+        </p>
       </div>
     </section>
   );

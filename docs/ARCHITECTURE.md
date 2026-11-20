@@ -6,7 +6,7 @@ La aplicación es un sitio estático con dos documentos de entrada: `index.html`
 
 El contenido verificado vive en `src/content`. Cada sección gestiona su estado local: filtro de proyectos, competencia seleccionada, archivo y nota del explorador, nodo de arquitectura y etapa de proceso. Los componentes visuales no consultan las bases de datos de CRM o Nexo.
 
-`EngineeringExplorer` y `HeroSphere` se cargan mediante importaciones dinámicas. Shiki funciona en herramientas de generación, no en el navegador. Sus tokens se muestran con React como texto, sin `dangerouslySetInnerHTML`.
+`EngineeringExplorer` se carga mediante una importación dinámica. Shiki funciona en herramientas de generación, no en el navegador. Sus tokens se muestran con React como texto, sin `dangerouslySetInnerHTML`.
 
 Los repositorios consultados permanecen separados y sin modificaciones. El manifiesto de fuentes fija los commits de los dos backends y una lista de archivos públicos. Cada archivo del explorador conserva el texto íntegro y su enlace de procedencia.
 
@@ -18,17 +18,15 @@ El menú móvil expone `aria-expanded`, se cierra al navegar y admite Escape. Lo
 
 ## Datos públicos
 
-La actividad se incorpora durante la compilación. No existe dependencia de una API durante la visita. La fecha de la instantánea es parte del contenido: no se afirma que sea tiempo real.
+`scripts/sync-github.mjs` compila el perfil, los repositorios y la actividad pública en una instantánea con fechas por sección. Lee los PR e issues del autor, y los comentarios y revisiones que recoge la API de eventos. El calendario procede de los datos públicos del perfil. Si falla una fuente, usa la copia más reciente de esa sección entre la instantánea incluida y la publicada.
 
-`sync-content.mjs` actualiza primero los datos de fuente y después los tokens. Una caída de la red conserva las instantáneas incluidas. La actividad valida identidad, fecha diaria, conteos y niveles antes de reemplazar el archivo local. La fuente pública se construye a partir de rutas fijas.
+La página usa una copia incluida al iniciar y vuelve a consultar `/data/github.json` en el mismo origen. Los enlaces de actividad apuntan a GitHub. El navegador recibe datos públicos y abre los originales desde el sitio.
 
 ## Límites de seguridad
 
 La política CSP del HTML de producción limita scripts y fuentes al mismo origen; permite conexiones y formularios exclusivamente a `https://api.web3forms.com` para el contacto; permite estilos inline necesarios para geometrías y colores de tokens. No utiliza secretos ni HTML remoto. Los enlaces externos abren con `noopener noreferrer`. Los source maps están deshabilitados.
 
 GitHub Pages no permite controlar todos los encabezados HTTP. `frame-ancestors` debe establecerse en una cabecera y no se finge como protección mediante una metaetiqueta. En el servidor de desarrollo se retira la CSP del HTML para admitir el cliente HMR de Vite; la compilación de producción la conserva.
-
-La escena libera geometrías, materiales, listeners, observers y contexto WebGL cuando se desmonta. El dispositivo puede rechazar WebGL; ese caso conserva el contenido y presenta una alternativa SVG calculada mediante código.
 
 ## Contacto por correo
 

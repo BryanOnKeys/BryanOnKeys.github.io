@@ -6,14 +6,21 @@ export default function Header({ standalone = false }: { standalone?: boolean })
   const [active, setActive] = useState('inicio');
   useEffect(() => {
     if (standalone) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
-      },
-      { rootMargin: '-15% 0px -65% 0px' },
-    );
-    document.querySelectorAll('main section[id]').forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    const sections = [...navigation].reverse();
+    const updateActive = () => {
+      const current = sections.find(({ id }) => {
+        const section = document.getElementById(id);
+        return section && section.getBoundingClientRect().top <= 120;
+      });
+      setActive(current?.id ?? 'inicio');
+    };
+    updateActive();
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive);
+    return () => {
+      window.removeEventListener('scroll', updateActive);
+      window.removeEventListener('resize', updateActive);
+    };
   }, [standalone]);
   useEffect(() => {
     if (!open) return;
@@ -31,12 +38,11 @@ export default function Header({ standalone = false }: { standalone?: boolean })
           className="brand"
           aria-label="Bryan, ir al inicio"
         >
-          <span className="brand-symbol">
-            B<span>K</span>
-            <i>.</i>
+          <span className="brand-symbol" aria-hidden="true">
+            ♞
           </span>
-          <span>
-            Bryan<span className="brand-handle"> / developer</span>
+          <span className="brand-name">
+            Bryan<span>OnKeys</span>
           </span>
         </a>
         <nav

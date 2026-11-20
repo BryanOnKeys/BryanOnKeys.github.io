@@ -29,7 +29,7 @@ Los diagramas se configuran en `src/content/architecture.ts`. Cada nodo lleva co
 
 ## Actividad y aportes
 
-`npm run content:sync` actualiza la actividad durante el build; no crea actividad en GitHub. Los aportes destacados están en `src/content/contributions.ts` y deben verificarse contra sus PR originales antes de cambiar su estado.
+`npm run content:github` actualiza la instantánea del perfil. El listado de actividad cubre los últimos 30 días disponibles en GitHub. Incluye PR e issues abiertos por Bryan, junto con sus revisiones y comentarios públicos. Los aportes integrados destacados están en `src/content/contributions.ts` y conservan el enlace a sus PR originales.
 
 ## Fotografía y formulario
 
