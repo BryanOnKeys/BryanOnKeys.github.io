@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '23 */6 * * *'
 permissions:
   contents: read
 concurrency:
@@ -19,11 +21,22 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Actualizar instantáneas públicas
+      - name: Actualizar código público y actividad de GitHub
+        if: github.event_name != 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: npm run content:sync
+      - name: Actualizar el portafolio con los datos de GitHub
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run content:github
       - run: npm run typecheck
+        if: github.event_name != 'schedule'
       - run: npm run lint
+        if: github.event_name != 'schedule'
       - run: npm test
+        if: github.event_name != 'schedule'
       - name: Compilar para GitHub Pages
         env:
           SITE_URL: https://bryanonkeys.github.io
@@ -31,12 +44,14 @@ jobs:
           VITE_CONTACT_ACCESS_KEY: ${{ vars.VITE_CONTACT_ACCESS_KEY }}
         run: npm run build
       - run: npx playwright install --with-deps chromium
+        if: github.event_name != 'schedule'
       - run: npm run test:e2e
+        if: github.event_name != 'schedule'
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
       - uses: actions/upload-artifact@v6
-        if: always()
+        if: ${{ !cancelled() && github.event_name != 'schedule' }}
         with:
           name: playwright-report
           path: playwright-report/

@@ -117,10 +117,6 @@ p {
   align-items: center;
   gap: 7px;
 }
-.eyebrow-mark {
-  color: #7da3fb;
-  font-size: 13px;
-}
 .section-heading p {
   font-size: 13px;
   line-height: 1.6;
@@ -344,278 +340,6 @@ p {
 .menu-toggle {
   display: none;
 }
-/* Hero */
-.hero {
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 0% 7%, #343c8824, transparent 42%),
-    radial-gradient(ellipse at 80% 49%, #16364b19, transparent 50%);
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 25px;
-  align-items: center;
-  min-height: 535px;
-  padding-block: 38px 18px;
-}
-.hero-copy {
-  z-index: 2;
-  padding-bottom: 10px;
-}
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  border: 1px solid #263849a3;
-  border-radius: 20px;
-  padding: 3px 9px;
-  background: #101923b0;
-  font-size: 10px;
-  color: #bec8d8;
-  line-height: 1.5;
-  margin-bottom: 23px;
-}
-.status-pill > span {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #59d3a5;
-  box-shadow: 0 0 9px #50e6a56b;
-}
-.hero h1 {
-  font-size: 67px;
-  line-height: 1.03;
-  font-weight: 800;
-  letter-spacing: -3.2px;
-}
-.title-dot {
-  color: #aeb8d5;
-}
-.hero-role {
-  font-size: 23px;
-  font-weight: 500;
-  margin-top: 14px;
-  letter-spacing: -0.4px;
-}
-.hero-description {
-  font-size: 15px;
-  line-height: 1.8;
-  max-width: 470px;
-  margin-top: 12px;
-  letter-spacing: 0.05px;
-}
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 25px;
-}
-.hero-facts {
-  display: flex;
-  gap: 27px;
-  margin-top: 32px;
-}
-.hero-facts > div {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-.fact-icon {
-  width: 31px;
-  height: 31px;
-  display: grid;
-  place-items: center;
-  border: 1px solid #59517c40;
-  border-radius: 50%;
-}
-.hero-facts p {
-  font-size: 10px;
-  color: #d0d5e2;
-  line-height: 1.6;
-}
-.hero-facts small {
-  font-size: 9px;
-  color: #8c9bb4;
-  display: block;
-}
-.hero-visual {
-  height: 460px;
-  position: relative;
-  isolation: isolate;
-  min-width: 0;
-}
-.sphere-stage {
-  position: absolute;
-  inset: -23px -15px -18px -18px;
-  pointer-events: auto;
-}
-.webgl-host {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.webgl-host canvas {
-  display: block;
-  max-width: 100%;
-  height: 100%;
-}
-.hero-visual::after {
-  content: '';
-  position: absolute;
-  left: 20%;
-  right: 14%;
-  height: 50px;
-  bottom: 24px;
-  z-index: -1;
-  background: radial-gradient(ellipse, #7048ff20, transparent 66%);
-  transform: rotate(-8deg);
-}
-.orbit-label {
-  position: absolute;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  pointer-events: none;
-  z-index: 2;
-}
-.orbit-label i {
-  width: 29px;
-  height: 29px;
-  display: grid;
-  place-items: center;
-  border: 1px solid #5e66821d;
-  border-radius: 50%;
-  font-style: normal;
-  box-shadow: 0 0 20px #131c3a77;
-  backdrop-filter: blur(4px);
-}
-.orbit-label div {
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-shadow: 0 1px 10px #060a13;
-}
-.orbit-label small {
-  font-weight: 400;
-  color: #9ba7bd;
-  display: block;
-  font-size: 9px;
-  white-space: nowrap;
-}
-.orbit-frontend {
-  top: 43px;
-  left: 1%;
-}
-.orbit-backend {
-  top: 27px;
-  right: 0;
-}
-.orbit-data {
-  top: 153px;
-  right: -1%;
-}
-.orbit-cloud {
-  top: 267px;
-  right: -1%;
-}
-.orbit-architecture {
-  bottom: 76px;
-  left: -1%;
-}
-.orbit-testing {
-  bottom: 12px;
-  left: 23%;
-}
-.orbit-caption {
-  position: absolute;
-  right: 8%;
-  bottom: 14px;
-  font-family: var(--mono);
-  font-style: italic;
-  color: #a7b3d1;
-  font-size: 11px;
-  line-height: 1.6;
-  transform: rotate(-12deg);
-  opacity: 0.8;
-}
-.scene-control {
-  position: absolute;
-  bottom: 9px;
-  right: 1px;
-  width: 25px;
-  height: 25px;
-  border-color: #28354a80;
-}
-.hero-baseline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-block: 0 18px;
-  font-family: var(--mono);
-  font-size: 8px;
-  color: #6f819e;
-  letter-spacing: 1.3px;
-}
-.hero-baseline a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  letter-spacing: 0.3px;
-  font-family: var(--font);
-  font-size: 10px;
-  color: #9caac0;
-}
-.hero-stars {
-  position: absolute;
-  inset: 0;
-  opacity: 0.3;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle, #5e94df 0.7px, transparent 1.1px),
-    radial-gradient(circle, #a17ced 0.5px, transparent 1px);
-  background-size:
-    147px 117px,
-    213px 179px;
-  background-position:
-    20px 40px,
-    87px 77px;
-}
-.sphere-fallback {
-  position: absolute;
-  width: 75%;
-  aspect-ratio: 1;
-  left: 14%;
-  top: 7%;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: radial-gradient(circle, #27486a33, transparent 69%);
-}
-.sphere-fallback > div {
-  width: 62%;
-  height: 62%;
-  border: 1px solid #608ae555;
-  border-radius: 50%;
-  position: absolute;
-  transform: rotate3d(1, 0.3, 0.5, 65deg);
-}
-.sphere-fallback > div:nth-child(2) {
-  transform: rotate3d(0.2, 1, 0.2, 58deg);
-  border-color: #ae6fff66;
-}
-.sphere-fallback > div:nth-child(3) {
-  width: 49%;
-  height: 49%;
-  transform: rotate3d(1, 1, 0.2, 30deg);
-  border-color: #66d3ff33;
-}
-.sphere-fallback span {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: #8d9db9;
-  margin-top: 69%;
-}
 /* About */
 .about-section {
   border-block: 1px solid var(--border);
@@ -638,45 +362,6 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.identity-initial {
-  font-size: 106px;
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -9px;
-  color: #c6cadd;
-  z-index: 1;
-  text-shadow: 0 3px 30px #4c4778;
-}
-.identity-initial > span {
-  color: #9578e8;
-}
-.identity-orbits {
-  position: absolute;
-  width: 240px;
-  height: 120px;
-  border: 1px solid #796cbb60;
-  border-radius: 50%;
-  transform: rotate(-40deg);
-}
-.identity-orbits::before,
-.identity-orbits::after {
-  content: '';
-  position: absolute;
-  inset: 9px -15px;
-  border: 1px solid #6ba0cd40;
-  border-radius: 50%;
-  transform: rotate(75deg);
-}
-.identity-orbits::after {
-  inset: -10px 30px;
-  transform: rotate(-65deg);
-}
-.identity-corner {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  color: #b593ef;
 }
 .identity-caption {
   position: absolute;
@@ -708,9 +393,6 @@ p {
   line-height: 1.27;
   letter-spacing: -0.9px;
   margin-bottom: 12px;
-}
-.desktop-break {
-  display: none;
 }
 .about-copy p {
   font-size: 12px;
@@ -1185,63 +867,6 @@ p {
 }
 .visual-portfolio {
   background: radial-gradient(ellipse at 72% 45%, #36235855, transparent 70%), #0c1020;
-}
-.mini-nav {
-  font-size: 6px;
-  padding: 9px 12px;
-  border-bottom: 1px solid #303653;
-  display: flex;
-  justify-content: space-between;
-  color: #8e9bb9;
-}
-.mini-nav b {
-  color: #b493fa;
-}
-.mini-hero {
-  display: flex;
-  align-items: center;
-  padding: 13px 15px;
-  gap: 10px;
-}
-.mini-hero small {
-  font-size: 5px;
-  color: #aaa1dc;
-  letter-spacing: 1px;
-}
-.mini-hero strong {
-  display: block;
-  font-size: 21px;
-  line-height: 1.03;
-  letter-spacing: -0.9px;
-  margin-top: 4px;
-}
-.mini-hero em {
-  color: #a87efa;
-  font-style: normal;
-}
-.mini-orb {
-  margin-left: auto;
-  height: 78px;
-  width: 78px;
-  position: relative;
-  display: grid;
-  place-items: center;
-  border: 1px solid #5364a066;
-  border-radius: 50%;
-  background: radial-gradient(circle, #47398d66, transparent 70%);
-  color: #7dbbf4;
-}
-.mini-orb span {
-  position: absolute;
-  width: 107px;
-  height: 38px;
-  border: 1px solid #927be1aa;
-  border-radius: 50%;
-  transform: rotate(-25deg);
-}
-.mini-orb span:nth-child(2) {
-  transform: rotate(48deg);
-  border-color: #4e9ce588;
 }
 /* Engineering */
 .engineering-grid {
@@ -1840,230 +1465,11 @@ p {
   font-size: 8px;
   color: #b5b4eb;
 }
-/* GitHub */
-.github-grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1.22fr 1fr;
-  gap: 14px;
-}
-.github-profile,
-.contribution-calendar,
-.contributions {
-  border: 1px solid #29364a;
-  border-radius: 8px;
-  background: linear-gradient(125deg, #15202c88, #0e1720);
-  padding: 17px;
-  min-width: 0;
-}
-.github-identity {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-.avatar-monogram {
-  height: 42px;
-  width: 42px;
-  flex-shrink: 0;
-  border: 1px solid #65749b;
-  border-radius: 50%;
-  display: grid;
-  place-content: center;
-  grid-auto-flow: column;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, #38345f, #1d3249);
-  color: #c2bcf3;
-}
-.avatar-monogram span {
-  color: #8faef0;
-}
-.github-identity h3 {
-  font-size: 13px;
-}
-.github-identity a {
-  font-size: 9px;
-  color: #8d9cb6;
-}
-.github-profile > p {
-  font-size: 10px;
-  line-height: 1.7;
-  margin-top: 13px;
-}
-.github-stats {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  gap: 7px;
-  margin-top: 22px;
-}
-.github-stats strong {
-  font-size: 18px;
-  font-weight: 600;
-  display: block;
-  line-height: 1.5;
-  color: #e2deff;
-}
-.github-stats span {
-  font-size: 8px;
-  color: #98a7c0;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-.calendar-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.calendar-heading h3 {
-  font-size: 10px;
-}
-.calendar-heading > a {
-  color: #7a8da9;
-}
-.calendar-months {
-  display: flex;
-  justify-content: space-between;
-  font-size: 7px;
-  color: #8396b3;
-  margin: 0 0 6px;
-}
-.calendar-wrap {
-  width: 100%;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #374a60 transparent;
-}
-.calendar-days {
-  display: grid;
-  grid-template-rows: repeat(7, 1fr);
-  grid-auto-flow: column;
-  gap: 3px;
-  min-width: 320px;
-  max-width: 100%;
-  aspect-ratio: 53/7;
-}
-.calendar-cell {
-  border-radius: 1px;
-  min-height: 3px;
-  min-width: 3px;
-}
-.level-0 {
-  background: #1c2e36;
-}
-.level-1 {
-  background: #28543d;
-}
-.level-2 {
-  background: #33865d;
-}
-.level-3 {
-  background: #44b17e;
-}
-.level-4 {
-  background: #64d99c;
-}
-.calendar-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 15px;
-}
-.calendar-bottom > span {
-  font-size: 9px;
-  color: #96a8bf;
-}
-.calendar-bottom strong {
-  font-size: 14px;
-  color: #5fd9a0;
-  font-weight: 600;
-}
-.calendar-legend {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: #92a3ba;
-  font-size: 6px;
-}
-.calendar-legend i {
-  height: 5px;
-  width: 5px;
-  display: block;
-  border-radius: 1px;
-}
-.snapshot-date {
-  display: block;
-  font-size: 7px;
-  color: #8395b0;
-  margin-top: 12px;
-}
-.contributions {
-  padding: 13px 14px;
-}
-.contributions > h3 {
-  font-size: 10px;
-  margin-bottom: 8px;
-}
-.contribution {
-  display: flex;
-  gap: 9px;
-  align-items: flex-start;
-  padding: 9px 0;
-  border-bottom: 1px solid #25364b77;
-}
-.contribution:last-child {
-  border: 0;
-  padding-bottom: 0;
-}
-.contribution > svg:first-child {
-  color: #a98de8;
-  width: 14px;
-  margin-top: 2px;
-}
-.contribution > svg:last-child {
-  margin-left: auto;
-  color: #7286a9;
-}
-.contribution strong {
-  font-size: 10px;
-  font-weight: 500;
-  color: #d2d9eb;
-  display: block;
-  line-height: 1.5;
-}
-.contribution small {
-  font-size: 7px;
-  display: block;
-  color: #8298c8;
-  margin-top: 2px;
-}
-.contribution span {
-  font-size: 8px;
-  line-height: 1.6;
-  color: #91a1b8;
-  display: block;
-  margin-top: 3px;
-}
-.contribution:hover strong {
-  color: #b89af5;
-}
 /* Contact, footer */
 /* Responsive */
 @media (min-width: 1500px) {
   :root {
     --container: 1320px;
-  }
-  .hero-grid {
-    min-height: 565px;
-  }
-  .hero h1 {
-    font-size: 74px;
-  }
-  .hero-visual {
-    height: 485px;
   }
   .about-grid {
     grid-template-columns: 250px 1fr 295px;
@@ -2100,57 +1506,6 @@ p {
   }
   .header-cta {
     margin-left: 5px;
-  }
-  .hero h1 {
-    font-size: 61px;
-  }
-  .hero-role {
-    font-size: 21px;
-  }
-  .hero-description {
-    font-size: 14px;
-  }
-  .hero-grid {
-    min-height: 505px;
-    grid-template-columns: 1fr 1.1fr;
-  }
-  .hero-visual {
-    height: 430px;
-  }
-  .hero-facts {
-    gap: 17px;
-  }
-  .hero-facts p {
-    font-size: 9px;
-  }
-  .hero-facts small {
-    font-size: 8px;
-  }
-  .orbit-label small {
-    font-size: 8px;
-  }
-  .orbit-label div {
-    font-size: 9px;
-  }
-  .orbit-label i {
-    width: 26px;
-    height: 26px;
-  }
-  .orbit-cloud {
-    top: 255px;
-  }
-  .orbit-backend {
-    right: -3%;
-  }
-  .orbit-data {
-    right: -4%;
-  }
-  .orbit-frontend {
-    left: 0;
-    top: 42px;
-  }
-  .orbit-caption {
-    font-size: 10px;
   }
   .about-grid {
     grid-template-columns: 190px 1fr 240px;
@@ -2239,20 +1594,6 @@ p {
     right: -7px;
     opacity: 0.75;
   }
-  .mini-hero {
-    padding: 10px;
-  }
-  .mini-hero strong {
-    font-size: 19px;
-  }
-  .mini-orb {
-    width: 66px;
-    height: 66px;
-  }
-  .mini-orb span {
-    width: 81px;
-    height: 30px;
-  }
   .engineering-grid {
     grid-template-columns: minmax(0, 1fr) 250px;
   }
@@ -2287,31 +1628,6 @@ p {
   .step > svg:first-child {
     width: 19px;
   }
-  .github-grid {
-    grid-template-columns: 0.9fr 1.2fr 1fr;
-    gap: 11px;
-  }
-  .github-profile,
-  .contribution-calendar {
-    padding: 14px;
-  }
-  .calendar-days {
-    gap: 2px;
-    min-width: 270px;
-  }
-  .calendar-bottom {
-    gap: 3px;
-  }
-  .calendar-bottom > span {
-    font-size: 8px;
-  }
-  .calendar-legend {
-    font-size: 5px;
-  }
-  .calendar-legend i {
-    height: 4px;
-    width: 4px;
-  }
 }
 @media (max-width: 960px) {
   .container {
@@ -2322,85 +1638,6 @@ p {
   }
   .nav a {
     font-size: 10px;
-  }
-  .hero-grid {
-    grid-template-columns: 1fr 1.03fr;
-    gap: 0;
-    min-height: 485px;
-  }
-  .hero h1 {
-    font-size: 57px;
-  }
-  .hero-copy {
-    padding-top: 10px;
-  }
-  .hero-description {
-    font-size: 13px;
-    max-width: 360px;
-  }
-  .hero-role {
-    font-size: 20px;
-  }
-  .hero-visual {
-    height: 405px;
-  }
-  .orbit-label small {
-    font-size: 7px;
-  }
-  .orbit-label div {
-    font-size: 8px;
-  }
-  .orbit-label {
-    gap: 5px;
-  }
-  .orbit-label i {
-    height: 23px;
-    width: 23px;
-  }
-  .orbit-label i svg {
-    width: 14px;
-  }
-  .orbit-frontend {
-    top: 34px;
-    left: 2%;
-  }
-  .orbit-backend {
-    top: 14px;
-    right: -1%;
-  }
-  .orbit-data {
-    top: 119px;
-  }
-  .orbit-cloud {
-    top: 235px;
-    right: 0;
-  }
-  .orbit-architecture {
-    bottom: 73px;
-    left: 0;
-  }
-  .orbit-testing {
-    bottom: 18px;
-    left: 17%;
-  }
-  .orbit-caption {
-    font-size: 9px;
-    right: 5%;
-    bottom: 6px;
-  }
-  .hero-facts {
-    gap: 14px;
-  }
-  .fact-icon {
-    width: 27px;
-    height: 27px;
-  }
-  .hero-facts > div {
-    gap: 6px;
-  }
-  .hero-actions .button {
-    padding: 10px 13px;
-    font-size: 11px;
   }
   .about-grid {
     grid-template-columns: 160px 1fr;
@@ -2500,23 +1737,6 @@ p {
   }
   .visual-label {
     font-size: 8px;
-  }
-  .mini-hero {
-    padding: 12px 25px;
-  }
-  .mini-hero small {
-    font-size: 6px;
-  }
-  .mini-hero strong {
-    font-size: 28px;
-  }
-  .mini-orb {
-    height: 94px;
-    width: 94px;
-  }
-  .mini-orb span {
-    width: 119px;
-    height: 43px;
   }
   .project-card h3 {
     font-size: 15px;
@@ -2625,58 +1845,6 @@ p {
   .node-description > a {
     font-size: 10px;
   }
-  .github-grid {
-    grid-template-columns: 0.9fr 1.5fr;
-  }
-  .contributions {
-    grid-column: 1/-1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 13px;
-    padding: 16px;
-  }
-  .contributions > h3 {
-    grid-column: 1/-1;
-    margin-bottom: 0;
-  }
-  .contribution {
-    border: 0;
-    padding: 0;
-  }
-  .calendar-days {
-    min-width: 300px;
-  }
-  .calendar-bottom > span {
-    font-size: 10px;
-  }
-  .calendar-legend {
-    font-size: 7px;
-  }
-  .calendar-legend i {
-    height: 6px;
-    width: 6px;
-  }
-  .calendar-heading h3 {
-    font-size: 11px;
-  }
-  .snapshot-date {
-    font-size: 8px;
-  }
-  .github-identity h3 {
-    font-size: 15px;
-  }
-  .github-identity a {
-    font-size: 10px;
-  }
-  .github-profile > p {
-    font-size: 11px;
-  }
-  .github-stats span {
-    font-size: 8px;
-  }
-  .github-stats {
-    margin-top: 15px;
-  }
   .section {
     padding-block: 33px;
   }
@@ -2753,121 +1921,6 @@ p {
     bottom: 1px;
     height: 1px;
   }
-  .hero-grid {
-    grid-template-columns: 1fr;
-    padding-block: 36px 0;
-    gap: 0;
-    min-height: 0;
-  }
-  .hero-copy {
-    padding: 0 9px;
-  }
-  .status-pill {
-    font-size: 9px;
-    margin-bottom: 19px;
-  }
-  .hero h1 {
-    font-size: 65px;
-    letter-spacing: -3.2px;
-  }
-  .hero-role {
-    font-size: 22px;
-    margin-top: 11px;
-  }
-  .hero-description {
-    font-size: 14px;
-    max-width: 460px;
-    margin-top: 12px;
-    line-height: 1.85;
-  }
-  .hero-actions {
-    margin-top: 22px;
-  }
-  .hero-actions .button {
-    font-size: 11px;
-    padding: 11px 15px;
-    min-height: 43px;
-  }
-  .hero-facts {
-    margin-top: 26px;
-    gap: 25px;
-  }
-  .hero-facts p {
-    font-size: 9px;
-  }
-  .hero-facts small {
-    font-size: 8px;
-  }
-  .hero-visual {
-    height: 379px;
-    max-width: 510px;
-    width: 100%;
-    margin: 5px auto 0;
-  }
-  .sphere-stage {
-    inset: -5px -6px 0;
-  }
-  .orbit-label div {
-    font-size: 9px;
-  }
-  .orbit-label small {
-    font-size: 8px;
-  }
-  .orbit-label i {
-    width: 27px;
-    height: 27px;
-  }
-  .orbit-label i svg {
-    width: 15px;
-  }
-  .orbit-frontend {
-    top: 42px;
-    left: 2%;
-  }
-  .orbit-backend {
-    top: 22px;
-    right: 1%;
-  }
-  .orbit-data {
-    top: 128px;
-    right: 0;
-  }
-  .orbit-cloud {
-    top: 230px;
-    right: 1%;
-  }
-  .orbit-architecture {
-    bottom: 51px;
-    left: 0;
-  }
-  .orbit-testing {
-    left: 20%;
-    bottom: 5px;
-  }
-  .orbit-caption {
-    right: 4%;
-    bottom: 4px;
-    font-size: 9px;
-  }
-  .scene-control {
-    right: 0;
-    bottom: 5px;
-    width: 23px;
-    height: 23px;
-  }
-  .orbit-caption {
-    right: 9%;
-  }
-  .hero-baseline {
-    padding-top: 16px;
-    padding-bottom: 17px;
-    font-size: 6px;
-    letter-spacing: 0.9px;
-  }
-  .hero-baseline a {
-    font-size: 8px;
-    gap: 5px;
-  }
   .about-section {
     padding: 22px 0;
   }
@@ -2877,17 +1930,6 @@ p {
   }
   .identity-card {
     height: 158px;
-  }
-  .identity-initial {
-    font-size: 74px;
-    letter-spacing: -6px;
-  }
-  .identity-corner {
-    top: 12px;
-    left: 10px;
-  }
-  .identity-corner svg {
-    width: 17px;
   }
   .identity-caption {
     padding: 8px 6px;
@@ -3197,32 +2239,6 @@ p {
     height: 6px;
     width: 6px;
   }
-  .mini-nav {
-    padding: 6px 7px;
-    font-size: 4px;
-  }
-  .mini-hero {
-    padding: 8px;
-  }
-  .mini-hero small {
-    font-size: 3px;
-    letter-spacing: 0.4px;
-  }
-  .mini-hero strong {
-    font-size: 17px;
-  }
-  .mini-orb {
-    width: 51px;
-    height: 51px;
-  }
-  .mini-orb svg {
-    width: 16px;
-    height: 16px;
-  }
-  .mini-orb span {
-    width: 60px;
-    height: 24px;
-  }
   .engineering-grid {
     grid-template-columns: 1fr;
   }
@@ -3455,108 +2471,6 @@ p {
   .node-description > a {
     font-size: 7px;
   }
-  .github-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .github-profile {
-    padding: 17px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 13px;
-  }
-  .github-profile > p {
-    margin-top: 0;
-    font-size: 10px;
-  }
-  .github-stats {
-    margin: 0;
-    grid-column: 1/-1;
-    justify-content: space-around;
-    border-top: 1px solid #27364b;
-    padding-top: 12px;
-  }
-  .github-stats strong {
-    font-size: 20px;
-  }
-  .github-stats span {
-    font-size: 9px;
-  }
-  .github-identity h3 {
-    font-size: 14px;
-  }
-  .github-identity a {
-    font-size: 10px;
-  }
-  .avatar-monogram {
-    height: 39px;
-    width: 39px;
-    font-size: 23px;
-  }
-  .contribution-calendar {
-    padding: 17px;
-  }
-  .calendar-heading {
-    margin-bottom: 13px;
-  }
-  .calendar-heading h3 {
-    font-size: 11px;
-  }
-  .calendar-months {
-    font-size: 7px;
-  }
-  .calendar-days {
-    min-width: 290px;
-    gap: 3px;
-  }
-  .calendar-bottom {
-    margin-top: 14px;
-  }
-  .calendar-bottom strong {
-    font-size: 16px;
-  }
-  .calendar-bottom > span {
-    font-size: 9px;
-  }
-  .calendar-legend {
-    font-size: 7px;
-  }
-  .calendar-legend i {
-    width: 5px;
-    height: 5px;
-  }
-  .snapshot-date {
-    font-size: 8px;
-  }
-  .contributions {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 16px;
-  }
-  .contributions > h3 {
-    font-size: 11px;
-    margin-bottom: 5px;
-  }
-  .contribution {
-    padding: 12px 0;
-    border-bottom: 1px solid #263649;
-  }
-  .contribution strong {
-    font-size: 11px;
-  }
-  .contribution small {
-    font-size: 8px;
-  }
-  .contribution span {
-    font-size: 9px;
-  }
-  .contribution > svg:first-child {
-    width: 17px;
-    margin-top: 3px;
-  }
-  .contribution > svg:last-child {
-    width: 13px;
-  }
   .explorer-intro {
     padding-top: 30px;
   }
@@ -3585,30 +2499,6 @@ p {
 @media (max-width: 370px) {
   .container {
     width: calc(100% - 28px);
-  }
-  .hero h1 {
-    font-size: 59px;
-  }
-  .hero-description {
-    font-size: 13px;
-  }
-  .hero-facts {
-    gap: 13px;
-  }
-  .hero-visual {
-    height: 350px;
-  }
-  .orbit-label small {
-    font-size: 7px;
-  }
-  .orbit-data {
-    top: 116px;
-  }
-  .orbit-cloud {
-    top: 211px;
-  }
-  .orbit-label div {
-    font-size: 8px;
   }
   .skill-list {
     gap: 7px;
@@ -3645,10 +2535,6 @@ p {
   .principles small {
     font-size: 8px;
   }
-  .calendar-days {
-    min-width: 260px;
-    gap: 2px;
-  }
   .engineering-note small {
     font-size: 6px;
   }
@@ -3663,25 +2549,6 @@ p {
     width: 22px;
     height: 22px;
   }
-}
-.webgl-host[data-webgl='active'] > .sphere-fallback {
-  display: none;
-}
-.webgl-host[data-webgl='fallback'] > canvas {
-  display: none;
-}
-.geometric-fallback {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.webgl-host[data-webgl='active'] > .geometric-fallback {
-  display: none;
-}
-.fallback-core {
-  filter: drop-shadow(0 0 10px #4266e644);
 }
 .evidence-metric {
   display: inline-flex;
@@ -3723,14 +2590,5 @@ p {
   }
   .step-description p {
     font-size: 12px;
-  }
-  .contribution strong {
-    font-size: 12px;
-  }
-  .contribution span {
-    font-size: 10px;
-  }
-  .github-profile > p {
-    font-size: 11px;
   }
 }

@@ -9,7 +9,31 @@ import Architecture from '../features/Architecture';
 import GitHubActivity from '../features/GitHubActivity';
 import Contact from '../features/Contact';
 import Footer from '../components/Footer';
+import { useGitHubSnapshot } from '../lib/github';
 const EngineeringExplorer = lazy(() => import('../features/EngineeringExplorer'));
+function Home() {
+  const snapshot = useGitHubSnapshot();
+  return (
+    <>
+      <Hero github={snapshot} />
+      <Projects />
+      <GitHubActivity snapshot={snapshot} />
+      <About />
+      <Skills />
+      <Suspense
+        fallback={
+          <div className="section-loading" role="status">
+            Preparando explorador técnico…
+          </div>
+        }
+      >
+        <EngineeringExplorer />
+      </Suspense>
+      <Architecture />
+      <Contact />
+    </>
+  );
+}
 export default function App() {
   const standalone = window.location.pathname.includes('/engineering');
   const initialProject = new URLSearchParams(window.location.search).get('project') || 'nexo';
@@ -42,24 +66,7 @@ export default function App() {
             </Suspense>
           </>
         ) : (
-          <>
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Suspense
-              fallback={
-                <div className="section-loading" role="status">
-                  Preparando explorador técnico…
-                </div>
-              }
-            >
-              <EngineeringExplorer />
-            </Suspense>
-            <Architecture />
-            <GitHubActivity />
-            <Contact />
-          </>
+          <Home />
         )}
       </main>
       {!standalone && <Footer />}

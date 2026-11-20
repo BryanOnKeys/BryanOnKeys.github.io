@@ -11,7 +11,7 @@
 
 El build utiliza `SITE_URL=https://bryanonkeys.github.io`, `VITE_BASE_PATH=/` y la variable de repositorio `VITE_CONTACT_ACCESS_KEY` para el identificador público de Web3Forms. La activación y prueba real de correo están descritas en [CONTACT.md](CONTACT.md). No se debe usar una contraseña de Gmail en esa variable.
 
-Solo el job de publicación recibe `pages: write` e `id-token: write`; el código se consulta con `contents: read`. No se incluye una tarea programada. Las instantáneas se actualizan en las compilaciones, conservando el contenido previo si la red no responde.
+Solo el job de publicación recibe `pages: write` e `id-token: write`; el código se consulta con `contents: read`. La consulta de GitHub está programada cada seis horas (minuto 23 de las 00, 06, 12 y 18 UTC). Los despliegues programados actualizan la instantánea y compilan. Cuando una fuente falla, esa sección conserva su copia y su fecha de actualización previa.
 
 La copia original en Sites tiene su propio alojamiento. Este repositorio de Pages no incluye la identidad de despliegue de ese proyecto.
 

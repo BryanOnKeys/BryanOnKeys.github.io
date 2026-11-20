@@ -13,17 +13,12 @@ export default function About() {
             loading="lazy"
           />
           <div className="identity-caption">
-            <span className="mono">&lt;Bryan /&gt;</span>
-            <small>Ideas que toman forma en código</small>
+            <span className="mono">@{profile.handle}</span>
           </div>
         </div>
         <div className="about-copy">
-          <div className="eyebrow">◈ SOBRE MÍ</div>
-          <h2>
-            De una idea a una
-            <br className="desktop-break" />
-            <span className="gradient-text"> solución que funciona.</span>
-          </h2>
+          <div className="eyebrow">SOBRE MÍ</div>
+          <h2>De la idea al código</h2>
           <p>{profile.about}</p>
           <div className="about-tags">
             <span>

@@ -47,8 +47,9 @@ export const skillGroups = [
         name: 'Three.js',
         icon: 'threedotjs',
         color: '#bfc9df',
-        detail: 'Geometría, órbitas y renderizado WebGL de este portfolio.',
-        evidence: here,
+        detail: 'Geometría, órbitas y renderizado WebGL de la versión anterior de este portafolio.',
+        evidence:
+          here + '/blob/7c5b50b25acca2518674799ee6121df3a151fa90/src/graphics/HeroSphere.tsx',
       },
     ],
   },

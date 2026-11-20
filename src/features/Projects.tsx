@@ -12,9 +12,7 @@ export default function Projects() {
     <section id="proyectos" className="section projects-section">
       <div className="container">
         <SectionHeading
-          eyebrow="PROYECTOS DESTACADOS"
-          title="Proyectos reales, soluciones concretas"
-          description="Aplicaciones que conectan lógica de negocio, datos y experiencia de usuario."
+          title="Proyectos seleccionados"
           action={
             <a
               className="button button-small"
@@ -83,7 +81,8 @@ export default function Projects() {
                       </a>
                     ) : p.demo ? (
                       <a href={p.demo}>
-                        Ver inicio <ArrowRight size={12} />
+                        {p.demo.startsWith('#') ? 'Ver inicio' : 'Ver demo'}{' '}
+                        <ArrowRight size={12} />
                       </a>
                     ) : (
                       <a href={p.repo} target="_blank" rel="noopener noreferrer">
