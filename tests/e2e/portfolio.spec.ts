@@ -108,6 +108,16 @@ test('diseño responsive y reducción de movimiento', async ({ page }) => {
       'false',
     );
   }
+  await page.setViewportSize({ width: 320, height: 780 });
+  await expect(page.getByRole('link', { name: 'Ver GitHub', exact: true })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  expect(
+    await page.evaluate(() => {
+      const root = document.documentElement;
+      const title = document.querySelector<HTMLElement>('.hero h1')!;
+      return root.scrollWidth <= root.clientWidth && title.scrollWidth <= title.clientWidth;
+    }),
+  ).toBe(true);
 });
 test('actividad pública filtra revisiones, comentarios y repositorios propios', async ({
   page,

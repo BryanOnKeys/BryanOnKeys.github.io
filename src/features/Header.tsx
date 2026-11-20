@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Box, Menu, X } from 'lucide-react';
+import { Github } from '../components/BrandIcons';
 import { navigation, profile } from '../content/profile';
 export default function Header({ standalone = false }: { standalone?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -67,11 +68,13 @@ export default function Header({ standalone = false }: { standalone?: boolean })
         </nav>
         <a
           className="button header-cta"
+          aria-label="Ver GitHub"
           href={profile.github}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Ver GitHub
+          <Github size={19} />
+          <span>Ver GitHub</span>
         </a>
         <button
           ref={menuToggle}

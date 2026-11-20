@@ -272,6 +272,7 @@ img {
   min-height: 40px;
   font-size: 0.875rem;
 }
+.header-cta img,
 .menu-toggle {
   display: none;
 }
@@ -354,5 +355,15 @@ img {
 @media (max-width: 380px) {
   .container {
     width: calc(100% - 30px);
+  }
+  .header-cta {
+    width: 40px;
+    padding-inline: 0;
+  }
+  .header-cta img {
+    display: block;
+  }
+  .header-cta span {
+    display: none;
   }
 }
