@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {
-  ArrowDown,
   ArrowUpRight,
   CalendarDays,
   CircleDot,
@@ -8,6 +7,7 @@ import {
   GitPullRequest,
   GitPullRequestArrow,
   MessageSquare,
+  Search,
   Star,
 } from 'lucide-react';
 import { SectionHeading } from '../components/SectionHeading';
@@ -32,13 +32,20 @@ const statusLabels: Record<string, string> = {
   changes_requested: 'Cambios solicitados',
 };
 
+function searchable(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLocaleLowerCase('es');
+}
+
 function ActivityRow({ item }: { item: GitHubActivityItem }) {
   const { singular, Icon } = kinds[item.kind];
   const status = item.state && statusLabels[item.state];
   return (
     <li>
       <a className="activity-row" href={item.url} target="_blank" rel="noopener noreferrer">
-        <span className="activity-icon" aria-hidden="true">
+        <span className={`activity-icon activity-${item.kind}`} aria-hidden="true">
           <Icon size={16} />
         </span>
         <span className="activity-detail">
@@ -66,7 +73,7 @@ function ContributionCalendar({ calendar }: { calendar: GitHubSnapshot['calendar
 
   return (
     <section className="contribution-calendar" aria-labelledby="calendar-title">
-      <div className="chess-card-heading">
+      <div className="panel-heading">
         <div>
           <h3 id="calendar-title">
             <CalendarDays size={19} aria-hidden="true" /> Calendario del perfil
@@ -140,20 +147,22 @@ export default function GitHubActivity({ snapshot }: { snapshot: GitHubSnapshot 
   const [kind, setKind] = useState<(typeof filters)[number]>('all');
   const [includeOwn, setIncludeOwn] = useState(false);
   const [visible, setVisible] = useState(activityPage);
+  const [query, setQuery] = useState('');
+  const search = searchable(query.trim());
   const items = snapshot.activity.items.filter(
     (item) =>
       (includeOwn || isCommunityItem(item, snapshot.profile.login)) &&
-      (kind === 'all' || item.kind === kind),
+      (kind === 'all' || item.kind === kind) &&
+      (!search || searchable(`${item.repo} #${item.number} ${item.title}`).includes(search)),
   );
   const repositories = snapshot.repositories.items.filter((repository) => !repository.fork);
 
   return (
-    <section id="github" className="section github-community">
+    <section id="github" className="section github-community light-surface">
       <div className="container">
         <SectionHeading
-          eyebrow="CÓDIGO ABIERTO"
           title="Comunidad en GitHub"
-          description="Reportes de bugs, cambios de código y conversaciones en proyectos de la comunidad."
+          description="Correcciones, reportes y revisiones con enlace a la conversación original."
           action={
             <a
               className="button button-small"
@@ -161,13 +170,13 @@ export default function GitHubActivity({ snapshot }: { snapshot: GitHubSnapshot 
               target="_blank"
               rel="noopener noreferrer"
             >
-              Abrir perfil <ArrowUpRight size={15} />
+              Abrir perfil
             </a>
           }
         />
         <div className="community-board">
           <section className="community-feed" aria-labelledby="activity-title">
-            <div className="chess-card-heading">
+            <div className="panel-heading">
               <div>
                 <h3 id="activity-title">Actividad reciente</h3>
                 <p>
@@ -187,7 +196,24 @@ export default function GitHubActivity({ snapshot }: { snapshot: GitHubSnapshot 
                 Incluir repositorios propios
               </label>
             </div>
-            <div className="activity-filters" role="group" aria-label="Filtrar actividad de GitHub">
+            <label className="activity-search">
+              <Search size={19} aria-hidden="true" />
+              <span className="sr-only">Buscar actividad por título o repositorio</span>
+              <input
+                type="search"
+                placeholder="Buscar por título o repositorio"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.currentTarget.value);
+                  setVisible(activityPage);
+                }}
+              />
+            </label>
+            <div
+              className="activity-filters filter-group"
+              role="group"
+              aria-label="Filtrar actividad de GitHub"
+            >
               {filters.map((filter) => (
                 <button
                   key={filter}
@@ -202,8 +228,8 @@ export default function GitHubActivity({ snapshot }: { snapshot: GitHubSnapshot 
                 </button>
               ))}
             </div>
-            <p className="sr-only" role="status">
-              {items.length} aportes en esta vista
+            <p className="activity-results" role="status">
+              {items.length} {items.length === 1 ? 'aporte' : 'aportes'}
             </p>
             {items.length ? (
               <ul className="activity-list">
@@ -212,7 +238,11 @@ export default function GitHubActivity({ snapshot }: { snapshot: GitHubSnapshot 
                 ))}
               </ul>
             ) : (
-              <p className="activity-empty">No hay aportes de este tipo en el periodo mostrado.</p>
+              <p className="activity-empty">
+                {search
+                  ? 'No hay aportes que coincidan con la búsqueda.'
+                  : 'No hay aportes de este tipo en el periodo mostrado.'}
+              </p>
             )}
             <div className="activity-bottom">
               <span>
@@ -228,80 +258,86 @@ export default function GitHubActivity({ snapshot }: { snapshot: GitHubSnapshot 
                   type="button"
                   onClick={() => setVisible(visible + activityPage)}
                 >
-                  Ver más <ArrowDown size={14} />
+                  Ver más
                 </button>
               )}
             </div>
           </section>
-          <aside className="community-highlight" aria-labelledby="community-highlight-title">
-            <h3 id="community-highlight-title">Aportes integrados</h3>
-            <ul>
-              {contributions.map((item) => (
-                <li key={item.url}>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <span>
-                      {item.repo} #{item.number}
-                    </span>
-                    <strong>
-                      {item.title} <ArrowUpRight size={16} aria-hidden="true" />
-                    </strong>
-                    <p>{item.description}</p>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </aside>
-          <section id="repositorios" className="community-repos" aria-labelledby="repository-title">
-            <div className="chess-card-heading">
-              <div>
-                <h3 id="repository-title">
-                  <FolderGit2 size={19} aria-hidden="true" /> Repositorios propios
-                </h3>
-                <p>Ordenados por el último push</p>
+          <div className="community-sidebar">
+            <aside className="community-highlight" aria-labelledby="community-highlight-title">
+              <h3 id="community-highlight-title">Aportes integrados</h3>
+              <ul>
+                {contributions.map((item) => (
+                  <li key={item.url}>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      <span>
+                        {item.repo} #{item.number}
+                      </span>
+                      <strong>
+                        {item.title} <ArrowUpRight size={16} aria-hidden="true" />
+                      </strong>
+                      <p>{item.description}</p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+            <section
+              id="repositorios"
+              className="community-repos"
+              aria-labelledby="repository-title"
+            >
+              <div className="panel-heading">
+                <div>
+                  <h3 id="repository-title">
+                    <FolderGit2 size={19} aria-hidden="true" /> Repositorios propios
+                  </h3>
+                  <p>Ordenados por el último push</p>
+                </div>
+                <a
+                  className="icon-button"
+                  href={`${profile.github}?tab=repositories`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Ver todos los repositorios en GitHub"
+                >
+                  <ArrowUpRight size={15} />
+                </a>
               </div>
-              <a
-                className="icon-button"
-                href={`${profile.github}?tab=repositories`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Ver todos los repositorios en GitHub"
-              >
-                <ArrowUpRight size={15} />
-              </a>
-            </div>
-            <ul className="repository-list">
-              {repositories.slice(0, 6).map((repository) => (
-                <li key={repository.url}>
-                  <a href={repository.url} target="_blank" rel="noopener noreferrer">
-                    <span>
-                      <strong>{repository.name}</strong>
-                      <small>
-                        {repository.language && <span>{repository.language}</span>}
-                        {repository.pushedAt && (
-                          <time dateTime={repository.pushedAt}>
-                            {formatGitHubDate(repository.pushedAt)}
-                          </time>
-                        )}
-                      </small>
-                    </span>
-                    <span
-                      className="repository-stars"
-                      aria-label={`${repository.stars} ${repository.stars === 1 ? 'estrella' : 'estrellas'}`}
-                    >
-                      <Star size={13} aria-hidden="true" /> {repository.stars}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p className="repository-sync">
-              Datos de GitHub al{' '}
-              <time dateTime={snapshot.repositories.updatedAt}>
-                {formatGitHubDate(snapshot.repositories.updatedAt, true)}
-              </time>{' '}
-              (Lima)
-            </p>
-          </section>
+              <ul className="repository-list">
+                {repositories.slice(0, 6).map((repository) => (
+                  <li key={repository.url}>
+                    <a href={repository.url} target="_blank" rel="noopener noreferrer">
+                      <span>
+                        <strong>{repository.name}</strong>
+                        <small>
+                          {repository.language && <span>{repository.language}</span>}
+                          {repository.pushedAt && (
+                            <time dateTime={repository.pushedAt}>
+                              {formatGitHubDate(repository.pushedAt)}
+                            </time>
+                          )}
+                        </small>
+                      </span>
+                      <span
+                        className="repository-stars"
+                        aria-label={`${repository.stars} ${repository.stars === 1 ? 'estrella' : 'estrellas'}`}
+                      >
+                        <Star size={13} aria-hidden="true" /> {repository.stars}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="repository-sync">
+                Datos de GitHub al{' '}
+                <time dateTime={snapshot.repositories.updatedAt}>
+                  {formatGitHubDate(snapshot.repositories.updatedAt, true)}
+                </time>{' '}
+                (Lima)
+              </p>
+            </section>
+          </div>
           <ContributionCalendar calendar={snapshot.calendar} />
         </div>
       </div>

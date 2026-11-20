@@ -14,8 +14,7 @@ export const profile = {
 export const navigation = [
   { id: 'proyectos', label: 'Proyectos' },
   { id: 'github', label: 'Comunidad' },
-  { id: 'sobre-mi', label: 'Sobre mí' },
-  { id: 'stack', label: 'Stack' },
   { id: 'ingenieria', label: 'Ingeniería' },
+  { id: 'sobre-mi', label: 'Sobre mí' },
   { id: 'contacto', label: 'Contacto' },
 ];

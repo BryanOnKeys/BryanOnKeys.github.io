@@ -18,12 +18,11 @@ export default function Skills() {
   const [selected, setSelected] = useState<Skill | null>(null);
   const [more, setMore] = useState(false);
   return (
-    <section id="stack" className="section stack-section">
+    <section id="stack" className="section stack-section light-surface">
       <div className="container">
         <SectionHeading
-          eyebrow="STACK TECNOLÓGICO"
           title="Tecnologías y herramientas"
-          description="Cada herramienta tiene un propósito. Cada competencia, una evidencia."
+          description="Selecciona una tecnología para ver cómo la usé y consultar el repositorio."
           action={
             <button
               className="button button-small"

@@ -1,94 +1,92 @@
 import { useState } from 'react';
-import { ArrowRight, ArrowUpRight, GitFork, CodeXml } from 'lucide-react';
+import { CodeXml, GitFork, Monitor } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { filters, filterProjects } from '../content/projects';
 import { SectionHeading } from '../components/SectionHeading';
+import { profile } from '../content/profile';
 import { engineeringUrl } from '../lib/urls';
 import ProjectVisual from './ProjectVisual';
+
 export default function Projects() {
   const [filter, setFilter] = useState<(typeof filters)[number]>('Todos');
   const reduced = useReducedMotion();
+  const projects = filterProjects(filter);
   return (
-    <section id="proyectos" className="section projects-section">
+    <section id="proyectos" className="section projects-section light-surface">
       <div className="container">
         <SectionHeading
           title="Proyectos seleccionados"
           action={
             <a
               className="button button-small"
-              href="https://github.com/BryanOnKeys?tab=repositories"
+              href={`${profile.github}?tab=repositories`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Todos los repositorios <ArrowUpRight size={14} />
+              <GitFork size={16} aria-hidden="true" /> Todos los repositorios
             </a>
           }
         />
-        <div className="project-filters" aria-label="Filtrar proyectos">
-          {filters.map((f) => (
-            <button key={f} onClick={() => setFilter(f)} aria-pressed={filter === f}>
-              {f === 'Full Stack' ? 'Aplicación completa' : f}
+        <div className="project-filters filter-group" role="group" aria-label="Filtrar proyectos">
+          {filters.map((value) => (
+            <button
+              type="button"
+              key={value}
+              onClick={() => setFilter(value)}
+              aria-pressed={filter === value}
+            >
+              {value === 'Full Stack' ? 'Aplicación completa' : value}
             </button>
           ))}
         </div>
         <motion.div layout={!reduced} className="project-grid">
           <AnimatePresence initial={false}>
-            {filterProjects(filter).map((p) => (
+            {projects.map((project) => (
               <motion.article
                 layout={!reduced}
-                initial={{ opacity: 0, y: reduced ? 0 : 10 }}
+                initial={{ opacity: 0, y: reduced ? 0 : 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0 : 0.18 }}
+                transition={{ duration: reduced ? 0 : 0.16 }}
                 className="project-card"
-                key={p.id}
+                key={project.id}
               >
-                <ProjectVisual type={p.visual} />
+                <ProjectVisual type={project.id} />
                 <div className="project-card-body">
-                  <div className="project-meta">
-                    <span
-                      className={`category category-${p.category.toLowerCase().replace(' ', '')}`}
-                    >
-                      {p.eyebrow.split(' · ')[0]}
-                    </span>
-                    <a
-                      href={p.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Repositorio de ${p.title}`}
-                    >
-                      <ArrowUpRight size={16} />
-                    </a>
-                  </div>
-                  <h3>{p.title}</h3>
-                  <p>{p.description}</p>
-                  <div className="project-tags">
-                    {p.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
+                  <p className="project-category">
+                    {project.category} <span>·</span> {project.domain}
+                  </p>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <ul className="project-tags" aria-label="Tecnologías">
+                    {project.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
                     ))}
-                  </div>
+                  </ul>
                   <div className="project-card-footer">
-                    <span>
-                      <i />
-                      {p.status}
-                    </span>
-                    {p.engineering ? (
+                    {project.engineering && (
                       <a
-                        href={engineeringUrl(p.engineering)}
-                        aria-label={`Explorar código de ${p.title}`}
+                        className="button button-small button-primary"
+                        href={engineeringUrl(project.engineering)}
+                        aria-label={`Explorar código de ${project.title}`}
                       >
-                        <CodeXml size={13} /> Explorar <ArrowRight size={12} />
-                      </a>
-                    ) : p.demo ? (
-                      <a href={p.demo}>
-                        {p.demo.startsWith('#') ? 'Ver inicio' : 'Ver demo'}{' '}
-                        <ArrowRight size={12} />
-                      </a>
-                    ) : (
-                      <a href={p.repo} target="_blank" rel="noopener noreferrer">
-                        <GitFork size={12} /> Código
+                        <CodeXml size={16} aria-hidden="true" /> Explorar código
                       </a>
                     )}
+                    {project.demo && (
+                      <a className="button button-small button-primary" href={project.demo}>
+                        <Monitor size={16} aria-hidden="true" /> Ver demo
+                      </a>
+                    )}
+                    <a
+                      className="button button-small"
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Repositorio de ${project.title}`}
+                    >
+                      <GitFork size={15} aria-hidden="true" /> Repositorio
+                    </a>
                   </div>
                 </div>
               </motion.article>

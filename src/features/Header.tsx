@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Box, Menu, X } from 'lucide-react';
 import { navigation, profile } from '../content/profile';
 export default function Header({ standalone = false }: { standalone?: boolean }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('inicio');
+  const menuToggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (standalone) return;
     const sections = [...navigation].reverse();
@@ -25,7 +26,10 @@ export default function Header({ standalone = false }: { standalone?: boolean })
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') {
+        setOpen(false);
+        menuToggle.current?.focus();
+      }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -39,7 +43,7 @@ export default function Header({ standalone = false }: { standalone?: boolean })
           aria-label="Bryan, ir al inicio"
         >
           <span className="brand-symbol" aria-hidden="true">
-            ♞
+            <Box size={21} strokeWidth={2.2} />
           </span>
           <span className="brand-name">
             Bryan<span>OnKeys</span>
@@ -67,9 +71,10 @@ export default function Header({ standalone = false }: { standalone?: boolean })
           target="_blank"
           rel="noopener noreferrer"
         >
-          Ver GitHub <ArrowUpRight size={15} />
+          Ver GitHub
         </a>
         <button
+          ref={menuToggle}
           className="menu-toggle icon-button"
           aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={open}

@@ -67,9 +67,12 @@ test('navegación, proyectos y explorador real', async ({ page }) => {
     .getByRole('complementary', { name: 'Explorador de archivos' })
     .getByRole('button', { name: 'SecurityConfig.java' })
     .click();
-  await expect(page.getByLabel('Código de SecurityConfig.java')).toContainText(
-    'BCryptPasswordEncoder',
-  );
+  const code = page.getByLabel('Código de SecurityConfig.java');
+  await expect(code).toContainText('BCryptPasswordEncoder');
+  const [firstLine, secondLine] = await code
+    .locator('.code-line')
+    .evaluateAll((lines) => lines.slice(0, 2).map((line) => line.getBoundingClientRect().top));
+  expect(secondLine).toBeGreaterThan(firstLine);
   await page.getByRole('link', { name: 'Abrir explorador completo', exact: true }).click();
   await expect(page).toHaveURL(/engineering\/\?project=crm/);
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
@@ -80,9 +83,16 @@ test('navegación, proyectos y explorador real', async ({ page }) => {
 test('diseño responsive y reducción de movimiento', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await expect(page.locator('.opening-image img')).toBeVisible();
-  await expect(page.locator('.opening-image img')).toHaveJSProperty('complete', true);
-  await expect(page.locator('.opening-image img')).toHaveJSProperty('naturalWidth', 1250);
+  const scene = page.locator('.hero-image img');
+  await expect(scene).toBeVisible();
+  await expect
+    .poll(() =>
+      scene.evaluate(
+        (img) => img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0,
+      ),
+    )
+    .toBe(true);
+  await expect(scene).toHaveAttribute('srcset', /island-64-small\.webp 760w/);
   await expect(page.locator('html')).toHaveCSS('scroll-behavior', 'auto');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -150,10 +160,15 @@ test('actividad pública filtra revisiones, comentarios y repositorios propios',
     'aria-pressed',
     'true',
   );
-  await expect(feed.getByRole('link', { name: /Revisión de Plugin Kueue/ })).toHaveAttribute(
-    'href',
-    expect.stringContaining('#pullrequestreview-'),
-  );
+  const review = feed.getByRole('link', { name: /Revisión de Plugin Kueue/ });
+  await expect(review).toHaveAttribute('href', expect.stringContaining('#pullrequestreview-'));
+  const search = feed.getByRole('searchbox', { name: 'Buscar actividad por título o repositorio' });
+  await search.fill('revision de plugin');
+  await expect(review).toBeVisible();
+  await expect(feed.getByRole('status')).toHaveText('1 aporte');
+  await search.fill('Ygilany/AskDB');
+  await expect(feed.getByText('No hay aportes que coincidan con la búsqueda.')).toBeVisible();
+  await search.clear();
   await feed.getByRole('button', { name: 'Comentarios', exact: true }).click();
   await expect(feed.locator('a[href*="#issuecomment-"]').first()).toBeVisible();
   await feed.getByRole('button', { name: 'Pull requests', exact: true }).click();

@@ -2,7 +2,7 @@
 
 ## Portada y recursos
 
-La portada usa una imagen WebP local. Declara dimensiones intrínsecas y prioridad alta; las imágenes de los proyectos y el retrato se cargan al acercarse a la vista. Las fuentes tienen `font-display: swap`.
+La portada selecciona una imagen WebP local de 760 o 1340 píxeles según el espacio y la densidad de pantalla. Ambas variantes declaran dimensiones y la portada se solicita con prioridad alta. Las fichas y el retrato se cargan al acercarse a la vista. Las fuentes locales usan `font-display: swap`.
 
 ## Carga
 
